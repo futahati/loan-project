@@ -16,16 +16,23 @@
 
         body {
             font-family: sans-serif;
-            background-color: #f4fbff;
+            background-color: #accfe4;
             padding: 24px;
             color: #1e2c3b;
+            text-align: center;
         }
 
         /* 單位rem會隨著瀏覽器自動縮放，不用px比較好 */
-        h1 {
-            font-size: 1.6rem;
+        h1,
+        h2 {
+            font-size: 2.5rem;
             color: #063e5f;
             margin-bottom: 1rem;
+        }
+
+        h2 {
+            text-align: left;
+            font-size: 1.5rem;
         }
 
         .container {
@@ -42,6 +49,7 @@
             /* rgb第4個值代表陰影的亮度 */
             /* box-shadow使用說明的參考網站：https://steam.oxxostudio.tw/category/css/content/box-shadow.html */
             box-shadow: 10px 10px;
+            text-align: left;
         }
 
         .form-row {
@@ -94,6 +102,58 @@
             height: 16px;
             accent-color: #2589c9;
         }
+
+        .summary-table,
+        .detial-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+            text-align: center;
+            border-radius: 12px;
+        }
+
+        .summary-table th {
+            background-color: #2589c9;
+            color: #ffffff;
+        }
+
+        .summary-table th,
+        .summary-table td {
+            border: 1px solid #2e7aa3;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .detial-table th {
+            border: 1px solid #0f4461;
+            background-color: #0f4461;
+            color: #ffffff;
+            padding: 10px;
+        }
+
+        .detial-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e5f6ff;
+
+        }
+
+        .detial-table tr:nth-child(even) {
+            background-color: #94a1ad;
+            color: #5024c9;
+        }
+
+        .subtitle {
+            font: 0.5em sans-serif;
+            color: #6a8ba2;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        /* #monthlyPayment,
+        #totalPayment,
+        #totalInterest {
+            text-align: right;
+        } */
     </style>
 </head>
 
@@ -101,7 +161,11 @@
     <!-- 輸入法 .container 直接帶入 div -->
     <div class="container">
 
-        <h1>貸款試算APP V1.0</h1>
+        <h1>貸款精算助手
+            <span class="subtitle">
+                輸入條件，快速分析您的還款計畫
+            </span>
+        </h1>
         <hr>
         <form id="loanForm" action="" class="loan-form">
 
@@ -144,12 +208,11 @@
             <button type="submit" id="clacBtn">計算</button>
         </form>
 
+        <h2>試算結果</h2>
         <div class="result">
-            <h2>試算結果</h2>
-
 
             <!-- 摘要表格 -->
-            <table border="1">
+            <table class="summary-table">
                 <thead>
                     <tr>
                         <th>項目</th>
@@ -159,21 +222,21 @@
                 <tbody>
                     <tr>
                         <td>每月還款金額</td>
-                        <td id="monthlyPayment">--</td>
+                        <td id="monthlyPayment">6666</td>
                     </tr>
                     <tr>
                         <td>總還款金額</td>
-                        <td id="totalPayment">--</td>
+                        <td id="totalPayment">166666</td>
                     </tr>
                     <tr>
                         <td>總利息支出</td>
-                        <td id="totalInterest">--</td>
+                        <td id="totalInterest">3666666</td>
                     </tr>
                 </tbody>
             </table>
 
             <!-- 分期明細表格 -->
-            <table border="1">
+            <table border="1" class="detial-table">
                 <thead>
                     <tr>
                         <th>期數</th>
@@ -184,6 +247,34 @@
                     </tr>
                 </thead>
                 <tbody id="scheduleBody">
+                    <tr>
+                        <td>1</td>
+                        <td>10000</td>
+                        <td>100000</td>
+                        <td>6666</td>
+                        <td>1000000</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>10000</td>
+                        <td>100000</td>
+                        <td>6666</td>
+                        <td>1000000</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>10000</td>
+                        <td>100000</td>
+                        <td>6666</td>
+                        <td>1000000</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>10000</td>
+                        <td>100000</td>
+                        <td>6666</td>
+                        <td>1000000</td>
+                    </tr>
                     <!-- JavaScript 動態填入 -->
                 </tbody>
             </table>
