@@ -37,5 +37,48 @@
         <br>
         <button type="submit" id="clacBtn">計算</button>
     </form>
+    <div>
+        <h2>試算結果</h2>
+    
+        <!-- 摘要表格 -->
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>金額</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>每月還款金額</td>
+                    <td id="monthlyPayment">--</td>
+                </tr>
+                <tr>
+                    <td>總還款金額</td>
+                    <td id="totalPayment">--</td>
+                </tr>
+                <tr>
+                    <td>總利息支出</td>
+                    <td id="totalInterest">--</td>
+                </tr>
+            </tbody>
+        </table>
+    
+        <!-- 分期明細表格 -->
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>期數</th>
+                    <th>月付金額</th>
+                    <th>本金</th>
+                    <th>利息</th>
+                    <th>剩餘本金</th>
+                </tr>
+            </thead>
+            <tbody id="scheduleBody">
+                <!-- JavaScript 動態填入 -->
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
