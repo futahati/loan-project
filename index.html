@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-tw">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>貸款試算APP V1.0</title>
+
+    <style>
+        /* 「*」全域設定 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: sans-serif;
+            background-color: #f4fbff;
+            padding: 24px;
+            color: #1e2c3b;
+        }
+
+        /* 單位rem會隨著瀏覽器自動縮放，不用px比較好 */
+        h1 {
+            font-size: 1.6rem;
+            color: #063e5f;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .loan-form,
+        .result {
+            background-color: #ffffff;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgb(0, 0, 0, 0.06);
+        }
+
+        .form-row {}
+    </style>
 </head>
 
 <body>
@@ -13,7 +51,7 @@
 
         <h1>貸款試算APP V1.0</h1>
         <hr>
-        <form id="loanForm" action="">
+        <form id="loanForm" action="" class="loan-form">
 
             <!-- 使用div區塊 + class -->
             <div class="form-row">
