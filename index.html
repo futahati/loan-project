@@ -38,10 +38,62 @@
             background-color: #ffffff;
             border-radius: 20px;
             margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgb(0, 0, 0, 0.06);
+            padding: 24px;
+            /* rgb第4個值代表陰影的亮度 */
+            /* box-shadow使用說明的參考網站：https://steam.oxxostudio.tw/category/css/content/box-shadow.html */
+            box-shadow: 10px 10px;
         }
 
-        .form-row {}
+        .form-row {
+            display: flex;
+            /* 水平設定 */
+            /* justify-content: left; */
+            justify-content: center;
+            /* 垂直設定 */
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .form-row label {
+            width: 90px;
+            font-weight: bold;
+            color: #063e5f;
+        }
+
+        input[type="number"],
+        select {
+            padding: 8px 10px;
+            border: 1px solid #b0d4ee;
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 180px;
+        }
+
+        #clacBtn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: 200;
+            border-radius: 6px;
+            border: none;
+            background-color: #2589c9;
+            color: #ffffff;
+            cursor: pointer;
+            /* 過渡動畫搭配 */
+            transition: background-color 5.0s ease;
+        }
+
+        #clacBtn:hover {
+            background-color: #0f4a6e;
+        }
+
+        input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #2589c9;
+        }
     </style>
 </head>
 
