@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>貸款精算小助手</title>
+
+    <!-- CSS程式碼 -->
+    <style>
+        /* CSS選擇器=> 通用選擇器
+        表示「所有元素」，其代表符號為一個星號「*」，使用後會將樣式套用到所有的元素，通用選擇器常用在進行「CSS 初始化」的動作 */
+        * {
+            box-sizing: border-box;
+            /* 定義寬高顯示方式 */
+            margin: 0;
+            /* 外邊界 */
+            padding: 0;
+            /* 內邊距 */
+        }
+
+        /* CSS選擇器=> 元素選擇器
+        表示「 HTML 元素」，只要是常用的 HTML 元素標籤 ( h1、h2、p、a...等 )，或是 HTML 所構成的元素標籤 ( html、body...等 )，都可以透過元素選擇器進行選擇 */
+        body {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            /* 設定字體 */
+            background-color: rgb(233, 214, 189);
+            /* 背景色 */
+            color: brown;
+            /* 文字顏色 */
+            text-align: center;
+            /* center置中；設定 塊級元素（如 <div>、<p>）或 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
+            padding: 24px;
+            /* 內邊距 */
+
+            /* CSS選擇器=> 元素選擇器=> 群組選擇器
+            用逗號把多個選擇器連在一起，讓它們共用同一組 CSS 規則 */
+            h1,
+            h2 {
+                color: darkolivegreen;
+                margin-bottom: 1rem;
+                /* 元素底部外邊距;專門控制元素 底部 與下一個元素之間的距離 */
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                /* 文字大小1rem=16px使用單位rem會隨著瀏覽器自動縮放，不用px比較好 */
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                text-align: left;
+                /* left靠左；設定 塊級元素（如 <div>、<p>）或 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
+            }
+
+            /* CSS選擇器=> Class選擇器
+            表示「HTML 的 class」，class 使用「.」開頭 */
+            /* body div */
+            .container {
+                max-width: 900px;
+                /* 最大寬度;可視範圍以900px最適合 */
+                margin: 0 auto;
+                /* 外邊界 */
+            }
+
+            .loan-form,
+            .result {
+                background-color: cornsilk;
+                /* rgb第4個值代表陰影的亮度 */
+                border-radius: 20px;
+                margin-bottom: 24px;
+                padding: 24px;
+                box-shadow: 10px 10px;
+                /* box-shadow使用說明的參考網站：https://steam.oxxostudio.tw/category/css/content/box-shadow.html */
+                text-align: center;
+            }
+
+            /* form div內 多組class */
+            .form-row {
+                display: flex;
+                /* 容器顯示類型;flex=> 彈性容器, 強制換行+調整寬高 */
+                justify-content: center;
+                /* 水平對齊 */
+                align-items: center;
+                /* 單行垂直對齊 */
+                gap: 12px;
+                /* 彈性元素垂直與水平間距 */
+                margin-bottom: 16px;
+            }
+
+            /* form div label */
+            .form-row label {
+                width: 90px;
+                /* label寬度 */
+                font-weight: bold;
+                /* 文字粗細;常用的屬性值 normal 和 bold */
+                color: #063e5f;
+            }
+
+            /* form div input */
+            input[type="number"],
+            select {
+                width: 180px;
+                border: 1px solid #b0d4ee;
+                /* 邊框 border: 邊框粗細 邊框樣式 邊框顏色; */
+                border-radius: 6px;
+                /* 邊框圓角 */
+                padding: 8px 10px;
+                font-size: 1rem;
+            }
+
+            #clacBtn {
+                width: 100%;
+                padding: 12px;
+                margin-top: 20px;
+                font-size: 1.5rem;
+                font-weight: 200;
+                border-radius: 10px;
+                border: none;
+                background-color: #3b98d2;
+                color: #ffffff;
+                cursor: pointer;
+                /* 過渡動畫搭配 */
+                transition: background-color 5.0s ease;
+            }
+
+            #clacBtn:hover {
+                background-color: #0f4a6e;
+            }
+
+            input[type="radio"] {
+                width: 16px;
+                height: 16px;
+                accent-color: #2589c9;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <!-- div是一個 HTML 的「通用容器元素」，本身沒有語義，只是用來把其他元素包起來
+     ，方便做分組、排版或套用樣式。它預設是塊級元素，會佔滿整行寬度。 -->
+    <!-- div.container or .container 可快速輸出 -->
+    <div class="container">
+
+        <h1>貸款精算小助手</h1>
+
+        <!-- 第 1 層Form表單區 -->
+        <form id="loanForm" action="" class="loan-form">
+
+            <!-- 不用br，改用div排版 -->
+            <div class="form-row">
+                <label for="amount">貸款金額</label>
+                <input required type="number" id="amount" name="amount" value="100" step="10" min="10"> 萬
+            </div>
+
+            <div class="form-row">
+                <label for="rate">貸款利率</label>
+                <input required type="number" id="rate" name="rate" value="1.85" step="0.01" min="1"> %
+            </div>
+
+            <div class="form-row">
+                <label for="handlingFree">貸款手續費</label>
+                <input required type="number" id="handlingFree" name="handlingFree" value="0" min="0"
+                    placeholder="請輸入相關手續費"> 元
+            </div>
+
+            <div class="form-row">
+                <label for="loanYears">貸款年限</label>
+                <select name="loanYears" id="loanYears">
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="7" selected>7</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                </select> 年
+            </div>
+
+            <div class="form-row">
+                <label for="repayment">還款方式</label>
+                <input type="radio" id="repayment1" name="repayment" value="repaymentMethod1" checked>本息平均攤還
+                <input type="radio" id="repayment2" name="repayment" value="repaymentMethod2">本金平均攤還
+            </div>
+
+            <button type="submit" id="clacBtn">計算</button>
+        </form>
+
+
+        <!-- 第 2 層表格區 -->
+        <div class="result">
+
+            <h2>試算結果</h2>
+
+            <!-- 摘要表格 -->
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>金額</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>每月還款金額</td>
+                        <td id="monthlyPayment">6666</td>
+                    </tr>
+                    <tr>
+                        <td>總還款金額</td>
+                        <td id="totalPayment">166666</td>
+                    </tr>
+                    <tr>
+                        <td>總利息支出</td>
+                        <td id="totalInterest">3666666</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 分期明細表格 -->
+            <table class="detial-table">
+                <thead>
+                    <tr>
+                        <th>期數</th>
+                        <th>月付金額</th>
+                        <th>本金</th>
+                        <th>利息</th>
+                        <th>剩餘本金</th>
+                    </tr>
+                </thead>
+                <tbody id="scheduleBody">
+                    <tr>
+                        <td>1</td>
+                        <td>10000</td>
+                        <td>100000</td>
+                        <td>6666</td>
+                        <td>1000000</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>10000</td>
+                        <td>100000</td>
+                        <td>6666</td>
+                        <td>1000000</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>10000</td>
+                        <td>100000</td>
+                        <td>6666</td>
+                        <td>1000000</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>10000</td>
+                        <td>100000</td>
+                        <td>6666</td>
+                        <td>1000000</td>
+                    </tr>
+                    <!-- JavaScript 動態填入 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
