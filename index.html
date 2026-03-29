@@ -360,34 +360,7 @@
                     </tr>
                 </thead>
                 <tbody id="scheduleBody">
-                    <tr>
-                        <td>1</td>
-                        <td>10000</td>
-                        <td>100000</td>
-                        <td>6666</td>
-                        <td>1000000</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>10000</td>
-                        <td>100000</td>
-                        <td>6666</td>
-                        <td>1000000</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>10000</td>
-                        <td>100000</td>
-                        <td>6666</td>
-                        <td>1000000</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>10000</td>
-                        <td>100000</td>
-                        <td>6666</td>
-                        <td>1000000</td>
-                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -425,12 +398,34 @@
 
             console.log(amount, rate, loanYears, method);
 
-            repaymentMethod1(amount * 10000, rate, loanYears);
+            let schedules = repaymentMethod1(amount * 10000, rate, loanYears);
 
-
+            renderTable(schedules)
         });
 
-        // function
+        // 渲染table
+        function renderTable(schedules) {
+            let tableHtml = "";
+            for (let i = 0; i < schedules.length; i++) {
+                tableHtml += `
+                    <tr>
+                        <td>${schedules[i].month}</td>
+                        <td>${schedules[i].monthlyPayment + schedules[i].interest}</td>
+                        <td>${schedules[i].monthlyPayment}</td>
+                        <td>${schedules[i].interest}</td>
+                        <td>${schedules[i].amount}</td>
+                    </tr>
+                `;
+            }
+
+            console.log(tableHtml);
+
+            // scheduleBody
+            document.querySelector("#scheduleBody").innerHTML = tableHtml;
+
+        }
+
+        // 本金平均攤還
         function repaymentMethod1(amount, rate, years) {
             let monthRate = rate / 100 / 12;//月利率
             let months = years * 12;//總期數
