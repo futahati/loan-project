@@ -310,8 +310,8 @@
 
             <div class="form-row">
                 <label for="repayment">還款方式</label>
-                <input type="radio" id="repayment1" name="repayment" value="repaymentMethod1" checked>本息平均攤還
-                <input type="radio" id="repayment2" name="repayment" value="repaymentMethod2">本金平均攤還
+                <input type="radio" id="repayment1" name="repayment" value="repaymentMethod1" checked>本金平均攤還
+                <input type="radio" id="repayment2" name="repayment" value="repaymentMethod2">本息平均攤還
             </div>
 
             <!-- 改type="button"，因為：前端溝通時不需要type="submit" -->
@@ -425,9 +425,45 @@
 
             console.log(amount, rate, loanYears, method);
 
-            // clacBtnEl
+            repaymentMethod1(amount * 10000, rate, loanYears);
+
 
         });
+
+        // function
+        function repaymentMethod1(amount, rate, years) {
+            let monthRate = rate / 100 / 12;//月利率
+            let months = years * 12;//總期數
+
+            let monthlyPayment = Math.round(amount / months);//每月本金
+            console.log(monthRate, months, monthlyPayment);
+
+            // 計算
+            schedules = [];//儲存陣列
+            for (let i = 0; i < months; i++) {
+                let interest = Math.round(amount * monthRate);
+                amount -= monthlyPayment;
+
+                if (i == months - 1) {
+                    monthlyPayment += amount;
+                    amount = 0;
+                }
+
+                console.log(`第${i + 1}期 本金：${monthlyPayment} 利息：${interest} 剩餘本金：${amount}`);
+                schedules.push(
+                    {
+                        "month": i + 1,
+                        "monthlyPayment": monthlyPayment,
+                        "interest": interest,
+                        "amount": amount,
+                    }
+                );
+            }
+
+            console.log(schedules);
+
+            return schedules;
+        }
 
 
     </script>
