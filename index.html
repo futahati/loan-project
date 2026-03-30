@@ -261,6 +261,24 @@
             color: #266183;
         }
 
+        /* 分期明細表格_捲動條 */
+        .table-container {
+            max-height: 400px;
+            /* 設定最大高度，超過就會出現捲動條 */
+            overflow-y: auto;
+            /* 垂直方向自動顯示捲動條 */
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+
+        /* 讓表格標題固定在最上方 (選配，這樣捲動時才看得到標題) */
+        .table-container thead th {
+            position: sticky;
+            top: 0;
+            /* background-color: #f8f9fa; */
+            z-index: 1;
+        }
+
         .subtitle {
             font: 0.5em sans-serif;
             color: #6a8ba2;
@@ -335,40 +353,45 @@
                 <tbody>
                     <tr>
                         <td>每月還款金額</td>
-                        <td id="monthlyPayment">6666</td>
+                        <td id="monthlyPayment"></td>
                     </tr>
                     <tr>
                         <td>總還款金額</td>
-                        <td id="totalPayment">166666</td>
+                        <td id="totalPayment"></td>
                     </tr>
                     <tr>
                         <td>總利息支出</td>
-                        <td id="totalInterest">3666666</td>
+                        <td id="totalInterest"></td>
                     </tr>
                 </tbody>
             </table>
 
             <!-- 分期明細表格 -->
-            <table class="detial-table">
-                <thead>
-                    <tr>
-                        <th>期數</th>
-                        <th>月付金額</th>
-                        <th>本金</th>
-                        <th>利息</th>
-                        <th>剩餘本金</th>
-                    </tr>
-                </thead>
-                <tbody id="scheduleBody">
+            <!-- CSS 捲動條（Scrollbar） 新增一個容器包住表格 -->
+            <div class="table-container">
 
-                </tbody>
-            </table>
+                <table class="detial-table">
+                    <thead>
+                        <tr>
+                            <th>期數</th>
+                            <th>月付金額</th>
+                            <th>本金</th>
+                            <th>利息</th>
+                            <th>剩餘本金</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scheduleBody">
+                        <!-- JavaScript區塊=> function renderTable(schedules) -->
+                    </tbody>
+                </table>
+
+            </div>
         </div>
     </div>
 
     <!-- JavaScript 動態填入 -->
     <script>
-        // 在網頁端查詢
+        // 在網頁端查詢==> form表單_條件區
         const title = document.querySelector("h1");
         console.log(title);
         const title1 = document.querySelector("span");
@@ -386,79 +409,145 @@
         console.log(amountEl, rateEl, loanYearsEl, clacBtnEl);
 
         // Butoon按鈕的觸發方式有2種。
-        // click：滑鼠點擊事件
+        // click：滑鼠點擊事件後，在「摘要表格、分期明細表格」要顯示的資料
         clacBtnEl.addEventListener("click", function (e) {
-            let amount = amountEl.value;
-            let rate = rateEl.value;
-            let loanYears = loanYearsEl.value;
+            let amount = amountEl.value;  // 取得輸入的 貸款金額
+            let rate = rateEl.value;  // 取得輸入的 貸款年利率
+            let loanYears = loanYearsEl.value;  // 取得輸入的 貸款期數
 
             let method = document.querySelector(
                 "input[name='repayment']:checked"
-            ).value;
+            ).value;  // 取得輸入的 本金／本息 計算條件
 
             console.log(amount, rate, loanYears, method);
 
-            let schedules = repaymentMethod1(amount * 10000, rate, loanYears);
+            // 「接住」並使用 return 回傳值
+            // 呼叫 repaymentMethod1 函式時，建議使用 「解構賦值」，這樣可以一次把所有變數拿出來用
+            const { firstAmount, sumInterest, totalPayment, paymentSchedules } = repaymentMethod1(1000000, 2, 20);
 
-            renderTable(schedules)
+            // 宣告變數schedules==> 函式的計算公式
+            // let schedules = repaymentMethod1(amount * 10000, rate, loanYears);
+            let result = repaymentMethod1(amount * 10000, rate, loanYears);
+
+            // 放進 click 事件的函式內
+            // .toLocaleString()加上千分位
+            document.querySelector("#monthlyPayment").innerText = result.firstAmount.toLocaleString();  //前端顯示
+            document.querySelector("#totalPayment").innerText = result.totalPayment.toLocaleString();  //前端顯示
+            document.querySelector("#totalInterest").innerText = result.sumInterest.toLocaleString();  //前端顯示
+
+            // 呼叫函式==> renderTable
+            renderTable(result.paymentSchedules)
         });
 
-        // 渲染table
-        function renderTable(schedules) {
+
+        // 函式區==> 渲染 HTML 裡分期明細表格的 table
+        function renderTable(paymentSchedules) {
+            // 宣告一個空表格
             let tableHtml = "";
-            for (let i = 0; i < schedules.length; i++) {
+            // 將 return schedules的資料，放進 HTML 裡的tr,td裡
+            for (let i = 0; i < paymentSchedules.length; i++) {
+                let p = paymentSchedules[i];
+
+                // .toLocaleString()加上千分位
                 tableHtml += `
                     <tr>
-                        <td>${schedules[i].month}</td>
-                        <td>${schedules[i].monthlyPayment + schedules[i].interest}</td>
-                        <td>${schedules[i].monthlyPayment}</td>
-                        <td>${schedules[i].interest}</td>
-                        <td>${schedules[i].amount}</td>
+                        <td>${p.month}</td>
+                        <td>${(p.currentPrincipal + p.interest).toLocaleString()}</td>
+                        <td>${p.currentPrincipal.toLocaleString()}</td>
+                        <td>${p.interest.toLocaleString()}</td>
+                        <td>${p.amount.toLocaleString()}</td>
                     </tr>
                 `;
             }
 
-            console.log(tableHtml);
+            console.log(tableHtml);  //後端顯示
 
-            // scheduleBody
-            document.querySelector("#scheduleBody").innerHTML = tableHtml;
+            // document.querySelector()：從 HTML 網頁中抓取符合特定條件的第一個元素==> 抓取 id 為 scheduleBody
+            // .innerHTML：用來 讀取 或 改變 HTML 元素「內部 HTML 內容」的一個屬性
+            document.querySelector("#scheduleBody").innerHTML = tableHtml;  //前端顯示
 
-        }
+        } // 這是 renderTable 函式的結束大括號
 
-        // 本金平均攤還
+
+        // 函式區==> 分期明細表格==> 計算公式區
         function repaymentMethod1(amount, rate, years) {
-            let monthRate = rate / 100 / 12;//月利率
-            let months = years * 12;//總期數
+            let monthRate = rate / 100 / 12;  //計算月利率
+            let months = years * 12;  //計算總期數
 
-            let monthlyPayment = Math.round(amount / months);//每月本金
-            console.log(monthRate, months, monthlyPayment);
+            let monthlyPayment = Math.round(amount / months);  //計算每月還款本金
+            // console.log(monthRate, months, monthlyPayment);  //後端顯示
+            console.log(`月利率：${monthRate} 總期數：${months} 每一期本金：${monthlyPayment}`);  //後端顯示
 
-            // 計算
-            schedules = [];//儲存陣列
+            // for迴圈製作分期明細表格
+            schedules = [];  //儲存陣列
+
+            // 本金、利息總和要宣告為0，而不是 "" ！！
+            let firstamount = 0;
+            let sumamount = 0;
+            let suminterset = 0;
+            let total = 0;
+
             for (let i = 0; i < months; i++) {
+                // 計算這一期的利息（= 月利率 ＊ 當期本金）
                 let interest = Math.round(amount * monthRate);
-                amount -= monthlyPayment;
 
-                if (i == months - 1) {
-                    monthlyPayment += amount;
+                // 宣告當期本金變數
+                let currentPrincipal;
+
+                // 判斷是否為最後一期
+                if (i === months - 1) {
+                    // 最後一期：本金就等於「目前剩餘的所有本金」
+                    currentPrincipal = amount;
+                    // 最後一期直接強行歸零 amount = 0
                     amount = 0;
+                } else {
+                    // 非最後一期：使用固定的每期本金
+                    currentPrincipal = monthlyPayment;
+                    amount -= currentPrincipal;
                 }
 
-                console.log(`第${i + 1}期 本金：${monthlyPayment} 利息：${interest} 剩餘本金：${amount}`);
+                // 取得第一期本金(僅用於紀錄)
+                if (i === 0) {
+                    firstamount = currentPrincipal;
+                }
+
+                // 進行總和累加（使用修正後的 currentPrincipal）
+                sumamount += currentPrincipal;    // 本金總和
+                suminterset += interest;          // 利息總和
+                total = sumamount + suminterset;  // 總還款金額
+
+                // 後端顯示
+                console.log(`第${i + 1}期 本金：${currentPrincipal} 利息：${interest} 剩餘本金餘額：${amount}`);
+
+                // .push()用來操作 陣列（Array） 的方法，「將一個或多個元素添加到陣列的末尾」
                 schedules.push(
                     {
                         "month": i + 1,
-                        "monthlyPayment": monthlyPayment,
+                        "currentPrincipal": currentPrincipal,
                         "interest": interest,
                         "amount": amount,
                     }
                 );
             }
 
+            // 後端顯示schedules明細結果==Pythone的print
             console.log(schedules);
 
-            return schedules;
-        }
+            // 後端顯示：本金總和、利息總和、總還款金額
+            console.log(`每一期本金：${firstamount} 本金總和：${sumamount} 利息總和：${suminterset} 總還款金：${total}`);
+
+            // 函式裡，所以要return
+            // return schedules;
+
+            // 在函式結束前 return 一個物件
+            return {
+                firstAmount: firstamount,
+                sumInterest: suminterset,
+                totalPayment: total,
+                paymentSchedules: schedules
+            };
+
+        } // 這是 repaymentMethod1 函式的結束大括號
 
 
     </script>
