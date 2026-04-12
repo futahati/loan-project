@@ -1,0 +1,301 @@
+/* CSS選擇器=> 通用選擇器
+        表示「所有元素」，其代表符號為一個星號「*」，使用後會將樣式套用到所有的元素，通用選擇器常用在進行「CSS 初始化」的動作 */
+        * {
+            box-sizing: border-box;
+            /* 定義寬高顯示方式 */
+            margin: 0;
+            /* 外邊界 */
+            padding: 0;
+            /* 內邊距 */
+        }
+
+        /* CSS選擇器=> 元素選擇器
+        表示「 HTML 元素」，只要是常用的 HTML 元素標籤 ( h1、h2、p、a...等 )，或是 HTML 所構成的元素標籤 ( html、body...等 )，都可以透過元素選擇器進行選擇 */
+        body {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            /* 設定字體 */
+            background-color: rgb(233, 214, 189);
+            /* 背景色 */
+            color: brown;
+            /* 文字顏色 */
+            text-align: center;
+            /* center置中；設定 塊級元素（如 <div>、<p>）或 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
+            padding: 24px;
+            /* 內邊距 */
+        }
+
+        /* CSS選擇器=> 元素群組選擇器
+            用逗號把多個選擇器連在一起，讓它們共用同一組 CSS 規則 */
+        h1,
+        h2 {
+            color: darkolivegreen;
+            margin-bottom: 1rem;
+            /* 元素底部外邊距;專門控制元素 底部 與下一個元素之間的距離 */
+        }
+
+        /* CSS選擇器=> 元素選擇器 */
+        h1 {
+            font-size: 2.5rem;
+            /* 文字大小1rem=16px使用單位rem會隨著瀏覽器自動縮放，不用px比較好 */
+        }
+
+        /* CSS選擇器=> 元素選擇器 */
+        h2 {
+            font-size: 1.5rem;
+            text-align: left;
+            /* left靠左；設定 塊級元素（如 <div>、<p>）或 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
+        }
+
+        /* ===================== */
+        /* form表單_條件區 */
+        /* ===================== */
+        /* CSS選擇器=> Class選擇器=> 表示「HTML 的 class」，class 使用「.」開頭 */
+        .container {
+            max-width: 900px;
+            /* 最大寬度;可視範圍以900px最適合 */
+            margin: 0 auto;
+            /* 外邊界；margin: 0 auto=使區塊元素水平置中 */
+        }
+
+        /* CSS選擇器=> Class群組選擇器 */
+        .loan-form,
+        .result {
+            background-color: cornsilk;
+            /* rgb第4個值代表陰影的亮度 */
+            border-radius: 20px;
+            /* 寫法共有四種：1數值／2數值／3數值／4數值；順時鐘設定「左上、右上、右下、左下」 */
+            margin-bottom: 24px;
+            /* 元素底部外邊距;專門控制元素 底部 與下一個元素之間的距離 */
+            padding: 24px;
+            /* 內邊距 */
+            box-shadow: 10px 10px 10px;
+            /* 設定元素的「容器陰影」，2個數值：沒模糊的陰影；3個數值：有模糊的陰影；第4個數值：陰影的縮放半徑；第5個值是陰影的color */
+            text-align: center;
+            /* 設定 塊級元素（如 <div>、<p>）中的 行內內容（文字、inline 元素）的水平對齊方式 */
+        }
+
+        /* CSS選擇器=> Class選擇器 */
+        .form-row {
+            display: flex;
+            /* 容器顯示類型;flex=> 彈性容器, 強制換行+調整寬高 */
+            justify-content: center;
+            /* 水平對齊 */
+            align-items: center;
+            /* 單行垂直對齊 */
+            gap: 12px;
+            /* 彈性元素垂直與水平間距 */
+            margin-bottom: 16px;
+            font-size: 1.2rem;
+        }
+
+        /* CSS選擇器=> 後代選擇器 表示選擇 class 元素裡，所有的 <label> 標籤 */
+        .form-row label {
+            width: 120px;
+            /* label寬度 */
+            font-size: 1.2rem;
+            font-weight: bold;
+            /* 文字粗細;常用的屬性值 normal 和 bold */
+            color: #088416;
+            margin-right: 1rem;
+        }
+
+        /* CSS選擇器=> 屬性選擇器 */
+        input[type="number"],
+        select {
+            width: 240px;
+            border: 1px solid #b4d0e4;
+            /* 邊框線條 border: 邊框粗細 邊框樣式 邊框顏色; */
+            border-radius: 6px;
+            /* 邊框圓角 */
+            padding: 8px 10px;
+            font-size: 1.1rem;
+        }
+
+        /* CSS選擇器=> ID選擇器 */
+        #clacBtn {
+            width: 100%;
+            padding: 0.2rem;
+            margin-top: 20px;
+            font-size: 1.8rem;
+            font-weight: 300px;
+            /* 文字粗細;常用的屬性值 normal 和 bold */
+            color: #ffffff;
+            border-radius: 0px 15px 0px 15px;
+            border: none;
+            /* 邊框線條；none=無邊框 */
+            background-color: #3b98d2;
+            cursor: pointer;
+            /* 設定滑鼠和元素發生互動時的「游標圖案」 */
+            transition: 1s background-color 0.5s ease;
+            /* transition 轉場屬性縮寫(持續、延遲時間預設皆為0)；持續時間 1s，針對 color，延遲時間 0.5s，使用 ease 轉場速度(動畫速度，加速開始，減速停止) */
+        }
+
+        /* 按鈕 :hover 效果 */
+        #clacBtn:hover {
+            background-color: #0f4a6e;
+            /* 變色 */
+            transform: rotateZ(-2deg);
+            /* 旋轉 */
+        }
+
+        #exportBtn {
+            padding: 0.2rem;
+            font-size: 1rem;
+            font-weight: 200px;
+            /* 文字粗細;常用的屬性值 normal 和 bold */
+            color: #ffffff;
+            border-radius: 6px;
+            border: none;
+            /* 邊框線條；none=無邊框 */
+            background-color: #eea560;
+            cursor: pointer;
+            /* 設定滑鼠和元素發生互動時的「游標圖案」 */
+            transition: 1s background-color 0.5s ease;
+            /* transition 轉場屬性縮寫(持續、延遲時間預設皆為0)；持續時間 1s，針對 color，延遲時間 0.5s，使用 ease 轉場速度(動畫速度，加速開始，減速停止) */
+        }
+
+        /* 按鈕 :hover 效果 */
+        #exportBtn:hover {
+            background-color: rgb(156, 97, 8);
+            /* 變色 */
+        }
+
+
+        /* CSS選擇器=> 屬性選擇器 */
+        input[type="radio"] {
+            width: 1.5rem;
+            height: 1.5rem;
+            accent-color: #2589c9;
+            /* 設定 accent-color 的顏色值，就能改變進度條(／單選選單按鈕)的進度顏色 */
+            /* transform: scale(1.5); */
+            /* 讓 radio 按鈕本身變大 = width + height也會將按鈕變大*/
+            margin-left: 10px;
+            /* 避免放大後文字太貼近 */
+        }
+
+        /* ===================== */
+        /* table表格_試算區 */
+        /* ===================== */
+        .result {
+            box-shadow: 10px 10px 10px;
+            /* 容器陰影 */
+        }
+
+        .summary-table,
+        .detial-table {
+            width: 100%;
+            border-collapse: collapse;
+            /* collapse：邊框重疊=>表格模式 ／ separate：邊框分離=>塊狀式格子 */
+            margin-bottom: 2rem;
+        }
+
+        /* 摘要表格 */
+        .summary-table th,
+        .summary-table td {
+            border: 1px solid #a0bbca;
+            /* 邊框線條 */
+            padding: 5px 12px;
+            text-align: left;
+            /* 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
+        }
+
+        .summary-table th {
+            background-color: #209117;
+            font-size: 1.5rem;
+            color: #ffff;
+            text-align: center;
+            /* 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
+        }
+
+        /* summary-table 每個td都有 2 個元素 */
+        /* :first-child 同一層元素裡的第一個元素 ／ :last-child 同一層元素裡的最後一個元素 */
+        .summary-table td:first-child {
+            font-size: 1.2rem;
+            color: #063e5f;
+            font-weight: bold;
+        }
+
+        .summary-table td:last-child {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #063e5f;
+            text-align: right;
+            padding-right: 60px;
+        }
+
+        /* 整列在 hover 時「浮起來」的效果 */
+        .summary-table {
+            border-collapse: separate;
+            /* 讓邊框分開，避免陰影被吃掉 */
+            border-spacing: 0 6px;
+            /* 可選：讓列之間有間距 */
+        }
+
+        .summary-table td {
+            transition: all 0.3s ease;
+        }
+
+        .summary-table tr:hover td {
+            transform: translateY(-5px);
+            /* 往上移動一點 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            /* 加上陰影 */
+            border: 1px solid #d0a0a0;
+            /* 加上邊框顏色 */
+            background-color: #e2cbcb;
+            /* 可選：改變背景色 */
+        }
+
+        /* 分期明細表格 */
+        .detial-table th {
+            font-family: 'Microsoft JhengHei', PMingLiU, DFKai-SB, fantasy, cursive, sans-serif;
+            font-size: 1.3rem;
+            background-color: #063e5f;
+            color: #ffff;
+            padding: 10px;
+        }
+
+        .detial-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #c3cec8;
+            transition: font-size .75s;
+        }
+
+        /* 當滑鼠移到某一列時，該列所有的 <td> 都會一起放大字體 */
+        .detial-table tr:hover td {
+            font-size: 1.5rem;
+        }
+
+        /* :nth-child(n) 同一層元素裡，從頭數來第 n 個元素 ／ even偶數*/
+        /* 偶數列改變顏色 */
+        .detial-table tr:nth-child(even) {
+            background-color: #bbbfea;
+            color: #266183;
+        }
+
+        /* 分期明細表格_捲動條 */
+        #table-container {
+            max-height: 600px;
+            /* 設定最大高度，超過就會出現捲動條 */
+            overflow-y: auto;
+            /* 垂直方向自動顯示捲動條 */
+            border: 1px solid #ccc;
+            /* 表格外框線條顯示 */
+            margin-top: 20px;
+        }
+
+        /* 讓表格標題固定在最上方 (選配，這樣捲動時才看得到標題) */
+        #table-container thead th {
+            position: sticky;
+            top: 0;
+            /* background-color: #f8f9fa; */
+            z-index: 1;
+        }
+
+        .subtitle {
+            font: 0.5em sans-serif;
+            color: #6a8ba2;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }

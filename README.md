@@ -1,24 +1,42 @@
-# 貸款試算專案
+# 貸款精算助手 (Loan Calculator)
 
-### 使用技術
+這是一個基於 Web 技術開發的貸款試算工具，旨在提供使用者直觀、快速的還款計畫分析。
 
-- html/css/javascript
+## 🚀 專案特色
 
-### 參照網站
+-   **雙重還款模式**：支援「本息平均攤還」與「本金平均攤還」。
+-   **詳盡分析**：除了計算每月還款額，還提供總還款金額、總利息支出及完整的分期明細表。
+-   **現代化 UI**：簡潔的介面設計與清楚的資料呈現。
+-   **響應式設計 (RWD)**：支援手機與桌面裝置瀏覽。
 
-- https://www.cathaybk.com.tw/cathaybk/personal/loan/calculator/loan-monthly-payments/
-- Html特殊符號
-    - https://www.toptal.com/designers/htmlarrows/
-- Padding、Margin、Border
-    - https://frankknow.com/what-is-padding-margin-border-css/#:~:text=Padding、Margin、Border%20是什麼？%20網頁設計必學的CSS%20知識！%20犬哥網站
-- box-shadow容器陰影
-    - https://steam.oxxostudio.tw/category/css/content/box-shadow.html
-- 顏文字
-    - https://ujoy.pixnet.net/blog/posts/8233733087
-- font-family
-    - https://www.oxxostudio.tw/articles/201811/css-font-family.html
+## 🛠️ 使用技術
 
+-   **HTML5**：頁面結構與語義化標籤。
+-   **CSS3**：使用 Flexbox 佈局與自定義樣式。
+-   **JavaScript**：負責還款邏輯計算與動態 DOM 渲染。
 
-### 功能介紹
+## 📋 功能說明
 
-- 使用者可選擇還款方式，與借款年份進行列表統計，以及表格呈現每個月還金額。
+### 系統輸入
+-   **貸款金額**：以「萬元」為單位。
+-   **貸款利率**：設定年利率百分比。-  
+-   **貸款年限**：提供 3 至 40 年的選項。
+-   **還款方式**：
+    -   **本息平均攤還**：每月償還總額固定。
+    -   **本金平均攤還**：每月償還本金固定，利息隨剩餘本金遞減。
+
+### 試算結果
+-   **摘要表格**：顯示每月還款金額、總還款金額及總利息支出。
+-   **分期明細**：詳細列出每一期的月付金額、本金、利息及剩餘本金，方便使用者追蹤還款進度。
+
+### 儲存功能
+- **儲存CSV**：將每月還款金額、總還款金額，以及總利息支出，儲存成CSV格式。
+
+## 📂 檔案結構
+
+-   `index.html`：主要程式碼，包含結構、樣式與計算邏輯。-  
+
+## 🔗 參考資源
+
+-   [國泰世華銀行 - 房貸試算](https://www.cathaybk.com.tw/cathaybk/personal/loan/calculator/mortgage-monthly-payments/)
+-   [台新銀行](https://www.taishinbank.com.tw/TSB/personal/trial/housing/housing1/)
