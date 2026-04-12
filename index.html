@@ -148,6 +148,29 @@
             /* 旋轉 */
         }
 
+        #exportBtn {
+            padding: 0.2rem;
+            font-size: 1rem;
+            font-weight: 200px;
+            /* 文字粗細;常用的屬性值 normal 和 bold */
+            color: #ffffff;
+            border-radius: 6px;
+            border: none;
+            /* 邊框線條；none=無邊框 */
+            background-color: #eea560;
+            cursor: pointer;
+            /* 設定滑鼠和元素發生互動時的「游標圖案」 */
+            transition: 1s background-color 0.5s ease;
+            /* transition 轉場屬性縮寫(持續、延遲時間預設皆為0)；持續時間 1s，針對 color，延遲時間 0.5s，使用 ease 轉場速度(動畫速度，加速開始，減速停止) */
+        }
+
+        /* 按鈕 :hover 效果 */
+        #exportBtn:hover {
+            background-color: rgb(156, 97, 8);
+            /* 變色 */
+        }
+
+
         /* CSS選擇器=> 屬性選擇器 */
         input[type="radio"] {
             width: 1.5rem;
@@ -262,17 +285,18 @@
         }
 
         /* 分期明細表格_捲動條 */
-        .table-container {
-            max-height: 400px;
+        #table-container {
+            max-height: 600px;
             /* 設定最大高度，超過就會出現捲動條 */
             overflow-y: auto;
             /* 垂直方向自動顯示捲動條 */
             border: 1px solid #ccc;
+            /* 表格外框線條顯示 */
             margin-top: 20px;
         }
 
         /* 讓表格標題固定在最上方 (選配，這樣捲動時才看得到標題) */
-        .table-container thead th {
+        #table-container thead th {
             position: sticky;
             top: 0;
             /* background-color: #f8f9fa; */
@@ -340,7 +364,10 @@
         <!-- table表格_試算區 -->
         <div class="result">
 
-            <h2>ᓚᘏᗢ 試算結果</h2>
+            <h2>ᓚᘏᗢ 試算結果
+                <!-- CSV 按鈕 -->
+                <button id="exportBtn" type="button"> 輸出 CSV </button>
+            </h2>
 
             <!-- 摘要表格 -->
             <table class="summary-table">
@@ -368,7 +395,7 @@
 
             <!-- 分期明細表格 -->
             <!-- CSS 捲動條（Scrollbar） 新增一個容器包住表格 -->
-            <div class="table-container">
+            <div id="table-container">
 
                 <table class="detial-table">
                     <thead>
@@ -386,6 +413,7 @@
                 </table>
 
             </div>
+            <!-- CSS 捲動條（Scrollbar）結束處 -->
         </div>
     </div>
 
@@ -446,9 +474,39 @@
             document.querySelector("#totalPayment").innerText = totalPrincipal.toLocaleString();                 //前端顯示
             document.querySelector("#totalInterest").innerText = totalInterest.toLocaleString();                 //前端顯示
 
+            // dd
+            renderSummary(schedules);
+
             // 呼叫 渲染表格函式renderTable
             renderTable(schedules);
         });
+
+
+        function renderSummary(schedules) {
+            const monthlyPaymentEl = document.querySelector("#monthlyPayment");
+            const totalPaymentEl = document.querySelector("#totalPayment");
+            const totalInterestEl = document.querySelector("#totalInterest");
+
+            console.log(monthlyPaymentEl, totalPaymentEl, totalInterestEl);
+            // console.log(`renderSummary：${monthlyPaymentEl} ${totalPaymentEl} ${totalInterestEl}`);
+
+            monthlyPaymentEl.innerText = `第一個月還款：   ${schedules[0].monthlyPayment.toLocaleString()} 元`;
+
+            // 初始化
+            let totalPrincipal = 0, totalInterest = 0;
+
+            // for 加總
+            for (let i = 0; i < schedules.length; i++) {
+                totalPrincipal += schedules[i].monthlyPayment;
+                totalInterest += schedules[i].interest;
+            }
+
+            console.log(`攤還本金總和：${totalPrincipal} 攤還利息總和：${totalInterest}`);
+
+            totalPaymentEl.innerHTML = `<b style='color:blue'> ${totalPrincipal.toLocaleString()} 元</b>`
+            totalInterestEl.innerHTML = `<b style='color:red'> ${totalInterest.toLocaleString()} 元</b>`
+
+        } // 函式 renderSummary 結束處
 
 
         // 繪製(渲染)表格
