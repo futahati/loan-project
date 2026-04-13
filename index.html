@@ -54,12 +54,12 @@
 
             <div class="form-row">
                 <label for="repayment">還款方式</label>
-                <input type="radio" id="repayment1" name="repayment" value="repaymentMethod1" checked>本金平均攤還
+                <input type="radio" id="repayment1" name="repayment" value="repaymentMethod1">本金平均攤還
                 <input type="radio" id="repayment2" name="repayment" value="repaymentMethod2">本息平均攤還
             </div>
 
             <!-- 改type="button"，因為：前端溝通時不需要type="submit" -->
-            <button type="button" id="clacBtn">計算</button>
+            <!-- <button type="button" id="clacBtn">計算</button> -->
         </form>
 
 
@@ -68,7 +68,7 @@
 
             <h2>ᓚᘏᗢ 試算結果
                 <!-- CSV 按鈕 -->
-                <button id="exportBtn" type="button"> 輸出 CSV </button>
+                <button id="exportBtn" type="button"> 匯出 CSV </button>
             </h2>
 
             <!-- 摘要表格 -->
@@ -76,12 +76,16 @@
                 <thead>
                     <tr>
                         <th>項目</th>
-                        <th>金額</th>
+                        <th>金額
+                            <span style="font-size: 18px;">
+                                （單位：元）
+                            </span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>每月還款金額</td>
+                        <td>第一個月還款金額</td>
                         <td id="monthlyPayment"></td>
                     </tr>
                     <tr>
@@ -121,18 +125,6 @@
 
     <!-- JavaScript 動態填入 -->
     <script>
-        // 在網頁端查詢==> form表單_條件區
-        const title = document.querySelector("h1");        // 前端顯示 document.querySelector() 查找元素
-        console.log(title);                                // 後端顯示
-        const title1 = document.querySelector("span");
-        console.log(title1);
-        title1.style.color = "orange";
-        // title.style.color = "red";
-        // 修改內容 1.只改文字（從後端資料庫取資料）
-        // title.innerText = "超級助手"; 
-        // 修改內容 2.用標籤語法修改（從後端資料庫取資料）
-        // title.innerHTML = "<b style='background-color: #3b98d2'>超級助手！</b>";//可以針對html語法修改
-
         // 全域
         let schedules = [];
 
@@ -140,21 +132,43 @@
         const amountEl = document.querySelector("#amount");
         const rateEl = document.querySelector("#rate");
         const loanYearsEl = document.querySelector("#loanYears");
-        const clacBtnEl = document.querySelector("#clacBtn");
-        const exportBtnEl = document.querySelector("#exportBtn");  // 輸出CSV
+        // const clacBtnEl = document.querySelector("#clacBtn");                  // 計算按鈕
+        const exportBtnEl = document.querySelector("#exportBtn");              // 輸出CSV
 
-        console.log(amountEl, rateEl, loanYearsEl, clacBtnEl, exportBtnEl);    // 後端顯示物件
+        // console.log(amountEl, rateEl, loanYearsEl, clacBtnEl, exportBtnEl);    // 後端顯示物件
+        console.log(amountEl, rateEl, loanYearsEl, exportBtnEl);    // 後端顯示物件
 
+        // 取得所有的 radio 按鈕
+        const repaymentRadios = document.querySelectorAll("input[name='repayment']");
+
+        // 對每一個 radio 綁定監聽
+        repaymentRadios.forEach(radio => {
+            radio.addEventListener("change", function (e) {
+                // 直接執行「更新畫面」的總函式，不需要傳參數
+                updateAll();
+            });
+        }); // repaymentRadios.forEach() 結束處
+
+        // 綁定給輸入框 (輸入時自動更新)
+        amountEl.addEventListener("input", updateAll);
+        rateEl.addEventListener("input", updateAll);
+        loanYearsEl.addEventListener("input", updateAll);
+
+        // 匯出 CSV；.addEventListener()用來**「監聽」並「反應」使用者動作**的橋樑
         exportBtnEl.addEventListener("click", function (e) {
-            console.log(schedules);
+            // console.log("click!");  // 檢測是否成功取得物件
 
+            // 空值，出現警告視窗 alert();
             if (schedules.length === 0) {
-                alert("目前無資料，請先計算！")
+                alert("目前無資料。\n\n1. 請確認輸入條件是否為空。\n2. 點擊還款方式【２擇１】。\n\n才會計算出數據呦！");
                 return;
             }
 
-            let data = [];
-            const headers = ["期數", "月付額", "攤還本金", "攤還利息", "貸款餘額"]
+            const headers = ["期數", "月付額", "攤還本金", "攤還利息", "貸款餘額"]    // 欄標題列
+
+            // 組裝 CSV 格式（2維資料），有２種計算方式
+            // 方式1：for廻圈
+            let data = [];                                                         // 2維資料列
             for (let i = 0; i < schedules.length; i++) {
                 data.push(
                     [
@@ -167,81 +181,85 @@
                 );
             } // for 結束處
 
+            // // 方式2：schedules.map(...)把 schedules 裡的每一個物件，都轉換成一個陣列
+            // let data = schedules.map(item => [
+            //     item.month,
+            //     item.monthlyPayment,
+            //     item.principal,
+            //     item.interest,
+            //     item.balance
+            // ]);
+
+            console.log(`CSV 2維格式`);
             console.log(data);
 
+            // 呼叫外部引用的 utils.js 裡的函式downloadCSV()
             downloadCSV(headers, data);
 
-        });
+        }); // exportBtnEl.addEventListener() 結束處
 
 
-        // Butoon按鈕的觸發方式有2種。
-        // .addEventListener()有2個參數：動作, 動作後的行為
-        // 動作 => click：滑鼠點擊事件後，在「摘要表格、分期明細表格」要顯示的資料
-        // 動作後的行為 => function (e)
-        clacBtnEl.addEventListener("click", function (e) {
-            let amount = amountEl.value;             // 元件.值：取得輸入的 貸款金額
-            let rate = rateEl.value;                 // 取得輸入的 貸款年利率
-            let loanYears = loanYearsEl.value;       // 取得輸入的 貸款期數
-
-            // 取得 還款方式 的值：type="radio"所以用"input[name='repayment']:checked"
-            // 多個radio共用name取值方式
-            let method = document.querySelector(
-                "input[name='repayment']:checked"       // 特殊取法
-            ).value;                                    // 取得輸入的 本金／本息 計算條件
-
-            console.log(`clacBtnEl：${amount} ${rate} ${loanYears} ${method}`);
-
-            // 根據 radio 的值決定呼叫哪個函式；amount的單位是萬，所以要 * 10000
-            let schedules;
-            if (method === "repaymentMethod1") {
-                schedules = repaymentMethod1(amount * 10000, rate, loanYears);  // 本金平均攤還
-            } else if (method === "repaymentMethod2") {
-                schedules = repaymentMethod2(amount * 10000, rate, loanYears);  // 本息平均攤還
+        // 把資料算好，然後分發給摘要區和表格區
+        function updateAll() {
+            // 檢查有沒有填資料（防錯）
+            if (amountEl.value === "" || rateEl.value === "" || loanYearsEl.value === "") {
+                return; // 資料不齊，直接結束，不往下算
             }
 
-            // .reduce()陣列方法，可以把所有元素累加起來
+            let amount = amountEl.value;                // 元件.值：取得輸入的 貸款金額
+            let rate = rateEl.value;                    // 取得輸入的 貸款年利率
+            let loanYears = loanYearsEl.value;          // 取得輸入的 貸款期數
+
+            // 取得選中的還款方式
+            let checkedRadio = document.querySelector("input[name='repayment']:checked");
+            if (!checkedRadio) return;
+            let method = checkedRadio.value;
+
+            console.log(`前端輸入值=> 貸款金額:${amount}萬 貸款利率:${rate} 貸款年限:${loanYears} 還款方式:${method}`);
+            console.log("正在自動計算...");
+
+            if (method === "repaymentMethod1") {
+                schedules = repaymentMethod1(amount * 10000, rate, loanYears);
+            } else if (method === "repaymentMethod2") {
+                schedules = repaymentMethod2(amount * 10000, rate, loanYears);
+            }
+            // 呼叫 摘要表格函式
+            renderSummary(schedules);
+
+            // 呼叫 渲染表格函式
+            renderTable(schedules);
+
+        } // 函式 function updateAll 的結束大括號
+
+
+        // 函式區==> 摘要表格==> 計算公式區
+        function renderSummary(schedules) {
+            const monthlyPaymentEl = document.querySelector("#monthlyPayment");
+            const totalPaymentEl = document.querySelector("#totalPayment");
+            const totalInterestEl = document.querySelector("#totalInterest");
+
+            console.log(monthlyPaymentEl, totalPaymentEl, totalInterestEl);    // 後端顯示物件
+
+            // 摘要表格：月付額、利息加總，有２種計算方式
+            // // 方式1：for廻圈
+            // let totalPrincipal = 0; totalInterest = 0;            //初始化
+            // for (let i = 0; i < schedules.length; i++) {
+            //     totalPrincipal += schedules[i].monthlyPayment;    // 月付額加總
+            //     totalInterest += schedules[i].interest;           // 利息加總                
+            // }
+
+            // 方式2：.reduce()陣列方法，可以把所有元素累加起來
             let totalPrincipal = schedules.reduce((sum, item) => sum + item.monthlyPayment, 0);     // 月付額加總
             let totalInterest = schedules.reduce((sum, item) => sum + item.interest, 0);            // 利息加總
 
-            // 放進 click 事件的函式內
-            // .toLocaleString()加上千分位
-            document.querySelector("#monthlyPayment").innerText = schedules[0].monthlyPayment.toLocaleString();  //前端顯示
-            document.querySelector("#totalPayment").innerText = totalPrincipal.toLocaleString();                 //前端顯示
-            document.querySelector("#totalInterest").innerText = totalInterest.toLocaleString();                 //前端顯示
+            console.log(`攤還本金總和：${totalPrincipal} 攤還利息總和：${totalInterest}`);            // 加總結果
 
-            // dd
-            // renderSummary(schedules);
+            // 前端 摘要表格 顯示；放進 click 事件的函式內 .toLocaleString()加上千分位
+            monthlyPaymentEl.innerText = schedules[0].monthlyPayment.toLocaleString();
+            totalPaymentEl.innerText = totalPrincipal.toLocaleString();
+            totalInterestEl.innerText = totalInterest.toLocaleString();
 
-            // 呼叫 渲染表格函式renderTable
-            renderTable(schedules);
-        });
-
-
-        // function renderSummary(schedules) {
-        //     const monthlyPaymentEl = document.querySelector("#monthlyPayment");
-        //     const totalPaymentEl = document.querySelector("#totalPayment");
-        //     const totalInterestEl = document.querySelector("#totalInterest");
-
-        //     console.log(monthlyPaymentEl, totalPaymentEl, totalInterestEl);
-        //     // console.log(`renderSummary：${monthlyPaymentEl} ${totalPaymentEl} ${totalInterestEl}`);
-
-        //     monthlyPaymentEl.innerText = `第一個月還款：   ${schedules[0].monthlyPayment.toLocaleString()} 元`;
-
-        //     // 初始化
-        //     let totalPrincipal = 0, totalInterest = 0;
-
-        //     // for 加總
-        //     for (let i = 0; i < schedules.length; i++) {
-        //         totalPrincipal += schedules[i].monthlyPayment;
-        //         totalInterest += schedules[i].interest;
-        //     }
-
-        //     console.log(`攤還本金總和：${totalPrincipal} 攤還利息總和：${totalInterest}`);
-
-        //     totalPaymentEl.innerHTML = `<b style='color:blue'> ${totalPrincipal.toLocaleString()} 元</b>`
-        //     totalInterestEl.innerHTML = `<b style='color:red'> ${totalInterest.toLocaleString()} 元</b>`
-
-        // } // 函式 renderSummary 結束處
+        } // 函式 renderSummary 的結束大括號
 
 
         // 繪製(渲染)表格
@@ -263,22 +281,22 @@
                 `;
             }
 
-            // 看表格的結構 ==> 在 clacBtnEl.addEventListener() 裡呼叫函式
-            console.log(tableHtml);
+            // 看表格 tr, td 結構 ==> 在 clacBtnEl.addEventListener() 裡呼叫函式
+            // console.log(tableHtml);
 
             // document.querySelector()：從 HTML 網頁中抓取符合特定條件的第一個元素==> 抓取 id 為 scheduleBody
             // .innerHTML：用來 讀取 或 改變 HTML 元素「內部 HTML 內容」的一個屬性
             document.querySelector("#scheduleBody").innerHTML = tableHtml;  //前端顯示
 
-        }  // 函式 renderTable 結束大括號
+        }  // 函式 renderTable 的結束大括號
 
 
         // 函式區==> (本金平均攤還)分期明細表格==> 計算公式區
         // 參考網站 https://www.taishinbank.com.tw/TSB/personal/trial/housing/housing2/
         function repaymentMethod1(amount, rate, years) {
-            let monthRate = rate / 100 / 12;              // 月利率
-            let months = years * 12;                      // 總期數
-            let principal = amount / months;              // 攤還本金(固定)
+            let monthRate = rate / 100 / 12;               // 月利率
+            let months = years * 12;                       // 總期數
+            let principal = amount / months;               // 攤還本金(固定)
 
             // 後端顯示
             console.log(`本金平均攤還`);
@@ -298,12 +316,12 @@
                 // 判斷是否為最後一期，處理最後一期的問題
                 if (i === months - 1) {
                     console.log(`最後一期 => 攤還本金(固定)：${principal} 貸款餘額：${balance}`);
-                    principal += balance;     // 最後一期的本金11904 + 最後一期的還款餘額7
-                    balance = 0;              // 最後一期 貸款餘額 直接強行歸零
+                    principal += balance;                   // 最後一期的本金11904 + 最後一期的還款餘額7
+                    balance = 0;                            // 最後一期 貸款餘額 直接強行歸零
                 }
 
                 // 後端顯示
-                console.log(`第${i + 1}期 月付額：${monthlyPayment} 攤還本金(固定)：${principal} 攤還利息：${interest} 貸款餘額：${balance}`);
+                // console.log(`第${i + 1}期 月付額：${monthlyPayment} 攤還本金(固定)：${principal} 攤還利息：${interest} 貸款餘額：${balance}`);
 
                 // .push()用來操作 陣列（Array） 的方法，「將一個或多個元素添加到陣列的末尾」
                 schedules.push(
@@ -317,11 +335,8 @@
                 );
             }
 
-            // 後端顯示schedules明細結果==Pythone的print
-            console.log(schedules);
-
-            // 函式裡，所以要return
-            return schedules;
+            console.log(schedules);   // 後端顯示schedules明細結果 == Pythone的print
+            return schedules;         // (與上方一樣的結果)將陣列 return 出去
 
         } // 函式 repaymentMethod1 的結束大括號
 
@@ -331,8 +346,7 @@
             let monthRate = rate / 100 / 12;                                               // 月利率
             let months = years * 12;                                                       // 總期數
             let monthlyPayment = amount * monthRate * Math.pow(1 + monthRate, months) /
-                (Math.pow(1 + monthRate, months) - 1);                                     // 月付額(固定)
-            // 「次方運算」函式：Math.pow(2, 3);   // 結果是 8，因為 2^3 = 8
+                (Math.pow(1 + monthRate, months) - 1);                                     // 月付額(固定) 「次方運算」函式：Math.pow(2, 3); 結果是 8，因為 2^3 = 8
 
             // 後端顯示
             console.log(`本息平均攤還`);
@@ -347,18 +361,18 @@
             for (let i = 0; i < months; i++) {
                 let interest = balance * monthRate;                                       // 當期利息（= 前期還款餘額 ＊ 月利率）
                 let principal = (amount * monthRate * Math.pow(1 + monthRate, months) /
-                    (Math.pow(1 + monthRate, months) - 1)) - (balance * monthRate);       // 攤還本金
+                    (Math.pow(1 + monthRate, months) - 1)) - (balance * monthRate);       // 攤還本金（= 月付額(固定) － 當期利息）
                 balance -= principal;                                                     // 更新貸款餘額（= 前期貸款餘額 － 當期攤還本金）逐期扣除
 
                 // 判斷是否為最後一期，處理最後一期的問題
                 if (i === months - 1) {
                     console.log(`最後一期 => 攤還本金：${principal} 貸款餘額：${balance}`);
-                    principal += balance;     // 最後一期的本金12682 + 最後一期的還款餘額7
-                    balance = 0;              // 最後一期 貸款餘額 直接強行歸零
+                    principal += balance;                                                 // 最後一期的本金12682 + 最後一期的還款餘額7
+                    balance = 0;                                                          // 最後一期 貸款餘額 直接強行歸零
                 }
 
                 // 後端顯示
-                console.log(`第${i + 1}期 月付額(固定)：${monthlyPayment} 攤還本金：${principal} 攤還利息：${interest} 貸款餘額：${balance}`);
+                // console.log(`第${i + 1}期 月付額(固定)：${monthlyPayment} 攤還本金：${principal} 攤還利息：${interest} 貸款餘額：${balance}`);
 
                 // .push()用來操作 陣列（Array） 的方法，「將一個或多個元素添加到陣列的末尾」
                 schedules.push(
@@ -373,11 +387,8 @@
 
             }
 
-            // 後端顯示schedules明細結果 == Pythone的print
-            console.log(schedules);
-
-            // (與上方一樣的結果)將陣列 return 出去
-            return schedules;
+            console.log(schedules);   // 後端顯示schedules明細結果 == Pythone的print            
+            return schedules;         // (與上方一樣的結果)將陣列 return 出去
 
         } // 函式 repaymentMethod2 的結束大括號
 
