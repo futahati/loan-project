@@ -24,6 +24,9 @@ body {
     /* 內邊距 */
 }
 
+/* ========================================== */
+/* h1, h2標題區 */
+/* ========================================== */
 /* CSS選擇器=> 元素群組選擇器
     用逗號把多個選擇器連在一起，讓它們共用同一組 CSS 規則 */
 h1,
@@ -54,15 +57,15 @@ h2 {
     /* left靠左；設定 塊級元素（如 <div>、<p>）或 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
 }
 
-/* ===================== */
+/* ========================================== */
 /* form表單_條件區 */
-/* ===================== */
+/* ========================================== */
 /* CSS選擇器=> Class選擇器=> 表示「HTML 的 class」，class 使用「.」開頭 */
 .container {
     max-width: 900px;
-    /* 最大寬度;可視範圍以900px最適合 */
+    width: 100%; /* 確保在小螢幕時會自動縮小 */
     margin: 0 auto;
-    /* 外邊界；margin: 0 auto=使區塊元素水平置中 */
+    padding: 0 15px; /* 增加左右緩衝，避免內容黏在手機邊緣 */
 }
 
 /* CSS選擇器=> Class群組選擇器 */
@@ -119,33 +122,21 @@ select {
     font-size: 1.1rem;
 }
 
-/* CSS選擇器=> ID選擇器 */
-#clacBtn {
-    width: 100%;
-    padding: 0.2rem;
-    margin-top: 20px;
-    font-size: 1.8rem;
-    font-weight: 300px;
-    /* 文字粗細;常用的屬性值 normal 和 bold */
-    color: #ffffff;
-    border-radius: 0px 15px 0px 15px;
-    border: none;
-    /* 邊框線條；none=無邊框 */
-    background-color: #3b98d2;
-    cursor: pointer;
-    /* 設定滑鼠和元素發生互動時的「游標圖案」 */
-    transition: 1s background-color 0.5s ease;
-    /* transition 轉場屬性縮寫(持續、延遲時間預設皆為0)；持續時間 1s，針對 color，延遲時間 0.5s，使用 ease 轉場速度(動畫速度，加速開始，減速停止) */
+/* CSS選擇器=> 屬性選擇器 */
+input[type="radio"] {
+    width: 1.5rem;
+    height: 1.5rem;
+    accent-color: #2589c9;
+    /* 設定 accent-color 的顏色值，就能改變進度條(／單選選單按鈕)的進度顏色 */
+    /* transform: scale(1.5); */
+    /* 讓 radio 按鈕本身變大 = width + height也會將按鈕變大*/
+    margin-left: 10px;
+    /* 避免放大後文字太貼近 */
 }
 
-/* 按鈕 :hover 效果 */
-#clacBtn:hover {
-    background-color: #0f4a6e;
-    /* 變色 */
-    transform: rotateZ(-2deg);
-    /* 旋轉 */
-}
-
+/* ========================================== */
+/* CSV 按鈕 */
+/* ========================================== */
 #exportBtn {
     padding: 0.2rem;
     font-size: 1rem;
@@ -169,21 +160,10 @@ select {
 }
 
 
-/* CSS選擇器=> 屬性選擇器 */
-input[type="radio"] {
-    width: 1.5rem;
-    height: 1.5rem;
-    accent-color: #2589c9;
-    /* 設定 accent-color 的顏色值，就能改變進度條(／單選選單按鈕)的進度顏色 */
-    /* transform: scale(1.5); */
-    /* 讓 radio 按鈕本身變大 = width + height也會將按鈕變大*/
-    margin-left: 10px;
-    /* 避免放大後文字太貼近 */
-}
 
-/* ===================== */
+/* ========================================== */
 /* table表格_試算區 */
-/* ===================== */
+/* ========================================== */
 .result {
     box-shadow: 10px 10px 10px;
     /* 容器陰影 */
@@ -197,7 +177,9 @@ input[type="radio"] {
     margin-bottom: 2rem;
 }
 
+/* ========================================== */
 /* 摘要表格 */
+/* ========================================== */
 .summary-table th,
 .summary-table td {
     border: 1px solid #a0bbca;
@@ -260,31 +242,52 @@ input[type="radio"] {
     /* 可選：改變背景色 */
 }
 
-/* 分期明細表格 */
+/* ========================================== */
+/* 分期明細表格 - 優化後的自然大地色系 */
+/* ========================================== */
 .detial-table th {
     font-family: 'Microsoft JhengHei', PMingLiU, DFKai-SB, fantasy, cursive, sans-serif;
-    font-size: 1.3rem;
-    background-color: #063e5f;
-    color: #ffff;
-    padding: 10px;
+    font-size: 1.1rem;
+    background-color: #556b2f; /* DarkOliveGreen */
+    color: #ffffff;
+    padding: 12px;
+    letter-spacing: 1px;
+}
+
+/* 預設所有列（包含奇數列） */
+.detial-table tr {
+    font-family: sans-serif;
+    background-color: #ffffff; /* 奇數列底色：白色 */
+}
+
+.detial-table tr td {
+    color: #2d4c1e !important; /* 深森林綠 */
 }
 
 .detial-table td {
-    padding: 8px 10px;
-    border-bottom: 1px solid #c3cec8;
-    transition: font-size .75s;
-}
-
-/* 當滑鼠移到某一列時，該列所有的 <td> 都會一起放大字體 */
-.detial-table tr:hover td {
-    font-size: 1.5rem;
+    padding: 10px;
+    border-bottom: 1px solid #d8e2dc; /* 淡淡的石灰色 */
+    color: #4a4a4a; /* 深灰褐色，比純黑更自然 */
+    /* 只針對字體大小與粗細設定動畫，避開背景色(background-color) */
+    transition: font-size 0.3s ease, font-weight 0.3s ease;
 }
 
 /* :nth-child(n) 同一層元素裡，從頭數來第 n 個元素 ／ even偶數*/
 /* 偶數列改變顏色 */
 .detial-table tr:nth-child(even) {
-    background-color: #bbbfea;
-    color: #266183;
+    background-color: #f2ede4; /* 使用淡淡的米褐色（沙色） */
+}
+
+.detial-table tr:nth-child(even) td {
+    color: #7a4419 !important; /* 深可可色 */
+}
+
+/* 當滑鼠移到某一列時，該列所有的 <td> 都會一起放大字體 */
+.detial-table tr:hover td {
+    background-color: #e9edc9 !important; /* 淺草綠色 */
+    color: #000000 !important; /* 移入時文字變全黑，增加閱讀清晰度 */
+    font-size: 1.25rem;
+    font-weight: bold;
 }
 
 /* 分期明細表格_捲動條 */
@@ -295,9 +298,10 @@ input[type="radio"] {
     /* 水平方向自動顯示捲動條 */
     overflow-y: auto;
     /* 垂直方向自動顯示捲動條 */
-    border: 1px solid #ccc;
-    /* 表格外框線條顯示 */
+    border: 1px solid #ccd5ae; /* 淺綠邊框 */
+    border-radius: 8px; /* 圓角化，符合整體風格 */
     margin-top: 20px;
+    background-color: #ffffff; /* 容器底色 */
 }
 
 /* 讓表格標題固定在最上方 (選配，這樣捲動時才看得到標題) */
@@ -306,5 +310,153 @@ input[type="radio"] {
     top: 0;
     /* background-color: #f8f9fa; */
     z-index: 1;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.1); /* 增加一點陰影區隔感 */
 }
 
+/* ========================================== */
+/* 標註作者、指導老師和版本資訊 */
+/* ========================================== */
+/* 頁尾容器總體設定 */
+footer {
+    margin-top: 50px;
+    padding: 30px 20px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    text-align: center;
+    color: #555;
+    line-height: 1.6;
+}
+
+.footer-content p {
+    margin: 4px 0;
+    font-size: 1rem;
+}
+
+/* 協作資訊樣式 */
+.collab-info {
+    font-size: 0.9rem;
+    color: #777;
+    font-style: italic; /* 斜體增加點綴感 */
+}
+
+.version-info {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.divider { color: #ddd; }
+
+
+/* ========================================== */
+/* RWD 響應式設定 (針對手機/平板寬度 768px 以下) */
+/* @media screen and (max-width: 768px)=>「只有在螢幕寬度小於等於 768px 的時候，才執行裡面的樣式」 */
+/* ========================================== */
+/* 當螢幕寬度小於 768px 時套用以下設定 */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 12px; /* 縮小手機版的頁面邊距 */
+    }
+
+    h1 {
+        font-size: 1.3rem; /* 縮小大標題，避免手機上換行太誇張 */
+    }
+
+    /* 表單區塊調整 */
+    .container {
+        width: 100%;
+    }
+    
+    .form-row {
+        flex-direction: column;    /* 變成長條狀垂直排列 */
+        align-items: flex-start;   /* 改為靠左對齊 */
+        gap: 6px;                  /* 稍微縮減間距 */
+        font-size: 1.1rem;           /* 縮小基礎字體 */
+        margin-bottom: 15px;       /* 增加每一組之間的距離，避免誤觸 */
+    }
+
+    .form-row label {
+        width: 100%;               /* Label標籤佔滿全寬 */
+        margin-right: 0;           /* 取消右側間距 */
+        margin-bottom: 4px;        /* 讓標籤跟輸入框有一點點距離 */
+        font-size: 1.4rem;
+        text-align: left;          /* 標籤內文靠左 */
+    }
+
+    input[type="number"],
+    select {
+        width: 100%;               /* 輸入框自動佔滿手機寬度 */
+        font-size: 1rem;
+        padding: 12px 10px;        /* 增加內距，讓手指好點擊（手機版建議大一點） */
+        box-sizing: border-box;    /* 重要！確保 padding 不會撐破 100% 的寬度 */
+    }
+
+    input[type="radio"] {
+        width: 1.2rem;             /* 稍微縮小單選鈕，1.5rem 在手機上有點突兀 */
+        height: 1.2rem;
+        margin-left: 0;            /* 手機版靠左對齊較整齊 */
+        margin-right: 8px;
+    }
+
+    /* 處理 Radio 選項的容器，讓它們橫向並排就好，不需要垂直 */
+    .form-row:has(input[type="radio"]) {
+        flex-direction: row; 
+        flex-wrap: wrap;           /* 如果選項太多自動換行 */
+        align-items: center;
+    }
+
+    /* 針對摘要表格的標題 (th) */
+    .summary-table th {
+        font-size: 1.1rem !important; /* 強制縮小，覆蓋原本的 1.5rem */
+        padding: 10px 5px !important; 
+    }
+
+    /* 針對摘要表格的內容 (td) */
+    .summary-table td {
+        font-size: 1rem !important;
+        padding: 8px !important;
+    }
+
+    /* 針對你原本提到的最後一格調整 */
+    .summary-table td:last-child {
+        padding-right: 12px !important;
+        text-align: right; /* 手機版數值通常靠右比較好讀 */
+    }
+
+    /* 3. 明細表格：強制文字不換行 + 縮小字體 */
+    .detial-table th, 
+    .detial-table td {
+        font-size: 0.85rem !important; /* 手機版 0.9 有時還是太大 */
+        padding: 6px 2px !important;
+        white-space: nowrap; /* 防止表格內容被自動擠壓換行，這樣才會出現捲軸 */
+    }
+
+    /* 4. 取消 Hover 效果，手機沒滑鼠，Hover 反而會讓觸控卡卡的 */
+    .detial-table tr:hover td {
+        font-size: 0.85rem !important;
+    }
+    /* 手機版 Footer 優化 */
+    footer {
+        padding: 20px 10px; /* 縮減間距 */
+    }
+
+    /*  標註作者、指導老師和版本資訊 */
+    .footer-content p {
+        font-size: 0.9rem;
+    }
+    
+    .collab-info {
+        font-size: 0.8rem;
+    }
+
+    .version-info {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .divider { display: none; }
+}
