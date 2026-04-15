@@ -1,12 +1,9 @@
 /* CSS選擇器=> 通用選擇器
 表示「所有元素」，其代表符號為一個星號「*」，使用後會將樣式套用到所有的元素，通用選擇器常用在進行「CSS 初始化」的動作 */
 * {
-    box-sizing: border-box;
-    /* 定義寬高顯示方式 */
-    margin: 0;
-    /* 外邊界 */
-    padding: 0;
-    /* 內邊距 */
+    box-sizing: border-box;    /* 定義寬高顯示方式 */
+    margin: 0;                 /* 外邊界 */
+    padding: 0;                /* 內邊距 */
 }
 
 /* CSS選擇器=> 元素選擇器
@@ -247,42 +244,41 @@ input[type="radio"] {
 /* ========================================== */
 .detial-table th {
     font-family: 'Microsoft JhengHei', PMingLiU, DFKai-SB, fantasy, cursive, sans-serif;
-    font-size: 1.1rem;
-    background-color: #556b2f; /* DarkOliveGreen */
+    /* 微軟正黑體, 新細明體, 標楷體, 幻想類, 草書/手寫類, 無襯線體 */
+    font-size: 1.1rem;    
     color: #ffffff;
-    padding: 12px;
     letter-spacing: 1px;
-}
-
-/* 預設所有列（包含奇數列） */
-.detial-table tr {
-    font-family: sans-serif;
-    background-color: #ffffff; /* 奇數列底色：白色 */
-}
-
-.detial-table tr td {
-    color: #2d4c1e !important; /* 深森林綠 */
+    background-color: #556b2f;    /* 深橄欖綠 */
+    padding: 12px;
+    /* 固定表頭核心邏輯 */
+    position: sticky;
+    top: 0;                         /* 黏在頂部 */
+    z-index: 1;                     /* 確保層級高於資料列 */
+    /* 視覺輔助 */
+    box-shadow: 0 2px 2px rgba(0,0,0,0.1);
 }
 
 .detial-table td {
+    font-family: sans-serif;    
+    color: #4a4a4a;                          /* 深灰褐色 */
     padding: 10px;
-    border-bottom: 1px solid #d8e2dc; /* 淡淡的石灰色 */
-    color: #4a4a4a; /* 深灰褐色，比純黑更自然 */
+    border-bottom: 1px solid #d8e2dc;        /* 淡淡的石灰色 */
     /* 只針對字體大小與粗細設定動畫，避開背景色(background-color) */
     transition: font-size 0.3s ease, font-weight 0.3s ease;
 }
 
 /* :nth-child(n) 同一層元素裡，從頭數來第 n 個元素 ／ even偶數*/
-/* 偶數列改變顏色 */
+/* 偶數列改變背景顏色 */
 .detial-table tr:nth-child(even) {
     background-color: #f2ede4; /* 使用淡淡的米褐色（沙色） */
 }
 
+/* 套用「權重等級」偶數列改變字體顏色 */
 .detial-table tr:nth-child(even) td {
     color: #7a4419 !important; /* 深可可色 */
 }
 
-/* 當滑鼠移到某一列時，該列所有的 <td> 都會一起放大字體 */
+/* 當滑鼠移到某一列時，該列所有的 <td> 改變字體、背景色 */
 .detial-table tr:hover td {
     background-color: #e9edc9 !important; /* 淺草綠色 */
     color: #000000 !important; /* 移入時文字變全黑，增加閱讀清晰度 */
@@ -292,25 +288,13 @@ input[type="radio"] {
 
 /* 分期明細表格_捲動條 */
 #table-container {
-    max-height: 400px;
-    /* 設定最大高度，超過就會出現捲動條 */
-    overflow-x: auto;
-    /* 水平方向自動顯示捲動條 */
-    overflow-y: auto;
-    /* 垂直方向自動顯示捲動條 */
-    border: 1px solid #ccd5ae; /* 淺綠邊框 */
-    border-radius: 8px; /* 圓角化，符合整體風格 */
+    max-height: 400px;              /* 設定最大高度，超過就會出現捲動條 */
+    overflow-x: auto;               /* 水平方向自動顯示捲動條 */
+    overflow-y: auto;               /* 垂直方向自動顯示捲動條 */
+    border: 1px solid #ccd5ae;    /* 淺綠邊框 */
+    border-radius: 8px;             /* 圓角化，符合整體風格 */
     margin-top: 20px;
-    background-color: #ffffff; /* 容器底色 */
-}
-
-/* 讓表格標題固定在最上方 (選配，這樣捲動時才看得到標題) */
-#table-container thead th {
-    position: sticky;
-    top: 0;
-    /* background-color: #f8f9fa; */
-    z-index: 1;
-    box-shadow: 0 2px 2px rgba(0,0,0,0.1); /* 增加一點陰影區隔感 */
+    background-color: #ffffff;    /* 容器底色 */
 }
 
 /* ========================================== */
@@ -318,39 +302,39 @@ input[type="radio"] {
 /* ========================================== */
 /* 頁尾容器總體設定 */
 footer {
-    margin-top: 50px;
+    margin-top: 30px;
     padding: 30px 20px;
-    background-color: #f8f9fa;
+    background-color: transparent; 
     border-top: 1px solid #e9ecef;
-    text-align: center;
-    color: #555;
-    line-height: 1.6;
+    text-align: center;    /* 內文置中 */
+    color: #6a8ba2; 
+    line-height: 1.6;      /* 內文上下間距 */
 }
 
 .footer-content p {
     margin: 4px 0;
     font-size: 1rem;
+    color: inherit;    /* inherit確保段落也繼承這個顏色 */
 }
 
 /* 協作資訊樣式 */
 .collab-info {
     font-size: 0.9rem;
-    color: #777;
-    font-style: italic; /* 斜體增加點綴感 */
+    opacity: 0.5;        /* 讓斜體資訊比主文字再淡一點點，或是維持一致 */
+    font-style: italic;
 }
 
 .version-info {
     margin-top: 12px;
     font-size: 0.85rem;
-    color: #999;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
-.divider { color: #ddd; }
-
+/* 設定 「分隔線（或分隔符號）」的顏色 */
+.divider { color: #bb7b7b; }
 
 /* ========================================== */
 /* RWD 響應式設定 (針對手機/平板寬度 768px 以下) */
@@ -375,7 +359,7 @@ footer {
         flex-direction: column;    /* 變成長條狀垂直排列 */
         align-items: flex-start;   /* 改為靠左對齊 */
         gap: 6px;                  /* 稍微縮減間距 */
-        font-size: 1.1rem;           /* 縮小基礎字體 */
+        font-size: 0.8rem;           /* 縮小基礎字體 */
         margin-bottom: 15px;       /* 增加每一組之間的距離，避免誤觸 */
     }
 
@@ -417,7 +401,7 @@ footer {
 
     /* 針對摘要表格的內容 (td) */
     .summary-table td {
-        font-size: 1rem !important;
+        font-size: 0.8rem !important;
         padding: 8px !important;
     }
 
@@ -430,7 +414,7 @@ footer {
     /* 3. 明細表格：強制文字不換行 + 縮小字體 */
     .detial-table th, 
     .detial-table td {
-        font-size: 0.85rem !important; /* 手機版 0.9 有時還是太大 */
+        font-size: 0.8rem !important; /* 手機版 0.9 有時還是太大 */
         padding: 6px 2px !important;
         white-space: nowrap; /* 防止表格內容被自動擠壓換行，這樣才會出現捲軸 */
     }

@@ -76,16 +76,12 @@
                 <thead>
                     <tr>
                         <th>項目</th>
-                        <th>金額
-                            <span style="font-size: 18px;">
-                                （單位：元）
-                            </span>
-                        </th>
+                        <th>金額</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>第一個月還款金額</td>
+                        <td>第1個月還款金額</td>
                         <td id="monthlyPayment"></td>
                     </tr>
                     <tr>
@@ -123,7 +119,7 @@
         </div>
     </div>
 
-    <!-- 標註作者、指導老師和版本資訊 -->
+    <!-- 標註作者、指導老師、協作、版本資訊、更新日期 -->
     <footer>
         <div class="footer-content">
             <p>Developed by: irw | Instructor: Jerry Chen (陳岳洋)</p>
@@ -270,9 +266,9 @@
             console.log(`攤還本金總和：${totalPrincipal} 攤還利息總和：${totalInterest}`);            // 加總結果
 
             // 前端 摘要表格 顯示；放進 click 事件的函式內 .toLocaleString()加上千分位
-            monthlyPaymentEl.innerText = schedules[0].monthlyPayment.toLocaleString();
-            totalPaymentEl.innerText = totalPrincipal.toLocaleString();
-            totalInterestEl.innerText = totalInterest.toLocaleString();
+            monthlyPaymentEl.innerText = `${schedules[0].monthlyPayment.toLocaleString()} 元`;
+            totalPaymentEl.innerText = `${totalPrincipal.toLocaleString()} 元`;
+            totalInterestEl.innerText = `${totalInterest.toLocaleString()} 元`;
 
         } // 函式 renderSummary 的結束大括號
 
