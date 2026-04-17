@@ -9,16 +9,11 @@
 /* CSS選擇器=> 元素選擇器
 表示「 HTML 元素」，只要是常用的 HTML 元素標籤 ( h1、h2、p、a...等 )，或是 HTML 所構成的元素標籤 ( html、body...等 )，都可以透過元素選擇器進行選擇 */
 body {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    /* 設定字體 */
-    background-color: rgb(233, 214, 189);
-    /* 背景色 */
-    color: brown;
-    /* 文字顏色 */
-    text-align: center;
-    /* center置中；設定 塊級元素（如 <div>、<p>）或 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
-    padding: 24px;
-    /* 內邊距 */
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;    /* 設定字體 */
+    background-color: rgb(233, 214, 189);                                    /* 背景色 */
+    color: brown;                                                            /* 文字顏色 */
+    text-align: center;    /* center置中；設定 塊級元素（如 <div>、<p>）或 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
+    padding: 24px;                                                             /* 內邊距 */
 }
 
 /* ========================================== */
@@ -35,8 +30,7 @@ h2 {
 
 /* CSS選擇器=> 元素選擇器 */
 h1 {
-    font-size: 2.5rem;
-    /* 文字大小1rem=16px使用單位rem會隨著瀏覽器自動縮放，不用px比較好 */
+    font-size: 2.5rem;    /* 文字大小1rem=16px使用單位rem會隨著瀏覽器自動縮放，不用px比較好 */
 }
 
 /* h1裡的span */
@@ -50,8 +44,7 @@ h1 {
 /* CSS選擇器=> 元素選擇器 */
 h2 {
     font-size: 1.5rem;
-    text-align: left;
-    /* left靠左；設定 塊級元素（如 <div>、<p>）或 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
+    text-align: left;       /* left靠左；設定 塊級元素（如 <div>、<p>）或 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
 }
 
 /* ========================================== */
@@ -60,49 +53,41 @@ h2 {
 /* CSS選擇器=> Class選擇器=> 表示「HTML 的 class」，class 使用「.」開頭 */
 .container {
     max-width: 900px;
-    width: 100%; /* 確保在小螢幕時會自動縮小 */
+    width: 100%;              /* 確保在小螢幕時會自動縮小 */
     margin: 0 auto;
-    padding: 0 15px; /* 增加左右緩衝，避免內容黏在手機邊緣 */
+    padding: 0 15px;          /* 增加左右緩衝，避免內容黏在手機邊緣 */
 }
 
 /* CSS選擇器=> Class群組選擇器 */
 .loan-form,
 .result {
-    background-color: cornsilk;
-    /* rgb第4個值代表陰影的亮度 */
-    border-radius: 20px;
-    /* 寫法共有四種：1數值／2數值／3數值／4數值；順時鐘設定「左上、右上、右下、左下」 */
-    margin-bottom: 24px;
-    /* 元素底部外邊距;專門控制元素 底部 與下一個元素之間的距離 */
-    padding: 24px;
-    /* 內邊距 */
-    box-shadow: 10px 10px 10px;
-    /* 設定元素的「容器陰影」，2個數值：沒模糊的陰影；3個數值：有模糊的陰影；第4個數值：陰影的縮放半徑；第5個值是陰影的color */
-    text-align: center;
-    /* 設定 塊級元素（如 <div>、<p>）中的 行內內容（文字、inline 元素）的水平對齊方式 */
+    background-color: cornsilk;    /* rgb第4個值代表陰影的亮度 */
+    border-radius: 20px;             /* 寫法共有四種：1數值／2數值／3數值／4數值；順時鐘設定「左上、右上、右下、左下」 */
+    margin-bottom: 24px;             /* 元素底部外邊距;專門控制元素 底部 與下一個元素之間的距離 */
+    padding: 24px;                   /* 內邊距 */
+    box-shadow: 10px 10px 10px;      /* 設定元素的「容器陰影」，2個數值：沒模糊的陰影；3個數值：有模糊的陰影；第4個數值：陰影的縮放半徑；第5個值是陰影的color */
+    text-align: center;              /* 設定 塊級元素（如 <div>、<p>）中的 行內內容（文字、inline 元素）的水平對齊方式 */
 }
 
 /* CSS選擇器=> Class選擇器 */
 .form-row {
-    display: flex;
-    /* 容器顯示類型;flex=> 彈性容器, 強制換行+調整寬高 */
-    justify-content: center;
-    /* 水平對齊 */
-    align-items: center;
-    /* 單行垂直對齊 */
-    gap: 12px;
-    /* 彈性元素垂直與水平間距 */
-    margin-bottom: 16px;
+    display: flex;              /* 容器顯示類型;flex=> 彈性容器, 強制換行+調整寬高 */
+    flex-direction: row;        /* 桌機版並排 */
+    justify-content: center;    /* 水平對齊 */
+    align-items: center;        /* 單行垂直對齊 */
+    gap: 12px;                  /* 彈性元素垂直與水平間距 */    
     font-size: 1.2rem;
+    margin-bottom: 16px;
 }
 
 /* CSS選擇器=> 後代選擇器 表示選擇 class 元素裡，所有的 <label> 標籤 */
 .form-row label {
-    width: 120px;
-    /* label寬度 */
+    display: flex;          /* 讓 label 裡的 radio + 文字保持在同一行 */
+    align-items: center;    /* 垂直置中 radio 與文字 */
+    white-space: nowrap;    /* 避免文字自動換行 */
+    width: 120px;           /* label寬度 */
     font-size: 1.2rem;
-    font-weight: bold;
-    /* 文字粗細;常用的屬性值 normal 和 bold */
+    font-weight: bold;      /* 文字粗細;常用的屬性值 normal 和 bold */
     color: #088416;
     margin-right: 1rem;
 }
@@ -111,24 +96,20 @@ h2 {
 input[type="number"],
 select {
     width: 240px;
-    border: 1px solid #b4d0e4;
-    /* 邊框線條 border: 邊框粗細 邊框樣式 邊框顏色; */
-    border-radius: 6px;
-    /* 邊框圓角 */
+    border: 1px solid #b4d0e4;    /* 邊框線條 border: 邊框粗細 邊框樣式 邊框顏色; */
+    border-radius: 6px;             /* 邊框圓角 */
     padding: 8px 10px;
     font-size: 1.1rem;
 }
 
 /* CSS選擇器=> 屬性選擇器 */
 input[type="radio"] {
-    width: 1.5rem;
-    height: 1.5rem;
-    accent-color: #2589c9;
-    /* 設定 accent-color 的顏色值，就能改變進度條(／單選選單按鈕)的進度顏色 */
-    /* transform: scale(1.5); */
-    /* 讓 radio 按鈕本身變大 = width + height也會將按鈕變大*/
-    margin-left: 10px;
-    /* 避免放大後文字太貼近 */
+    /* width: 1.5rem;
+    height: 1.5rem; */
+    accent-color: #2589c9;      /* 設定 accent-color 的顏色值，就能改變進度條(／單選選單按鈕)的進度顏色 */
+    transform: scale(1.5);        /* 讓 radio 按鈕本身變大 = width + height也會將按鈕變大*/
+    margin-left: 10px;            /* 避免放大後文字太貼近 */
+    margin-right: 10px;           /* 避免放大後文字太貼近 */
 }
 
 /* ========================================== */
@@ -137,23 +118,18 @@ input[type="radio"] {
 #exportBtn {
     padding: 0.2rem;
     font-size: 1rem;
-    font-weight: 200px;
-    /* 文字粗細;常用的屬性值 normal 和 bold */
+    font-weight: 200px;                             /* 文字粗細;常用的屬性值 normal 和 bold */
     color: #ffffff;
     border-radius: 6px;
-    border: none;
-    /* 邊框線條；none=無邊框 */
+    border: none;                                   /* 邊框線條；none=無邊框 */
     background-color: #eea560;
-    cursor: pointer;
-    /* 設定滑鼠和元素發生互動時的「游標圖案」 */
-    transition: 1s background-color 0.5s ease;
-    /* transition 轉場屬性縮寫(持續、延遲時間預設皆為0)；持續時間 1s，針對 color，延遲時間 0.5s，使用 ease 轉場速度(動畫速度，加速開始，減速停止) */
+    cursor: pointer;                                /* 設定滑鼠和元素發生互動時的「游標圖案」 */
+    transition: 1s background-color 0.5s ease;      /* transition 轉場屬性縮寫(持續、延遲時間預設皆為0)；持續時間 1s，針對 color，延遲時間 0.5s，使用 ease 轉場速度(動畫速度，加速開始，減速停止) */
 }
 
 /* 按鈕 :hover 效果 */
 #exportBtn:hover {
-    background-color: rgb(156, 97, 8);
-    /* 變色 */
+    background-color: rgb(156, 97, 8);            /* 變色 */
 }
 
 
@@ -162,16 +138,16 @@ input[type="radio"] {
 /* table表格_試算區 */
 /* ========================================== */
 .result {
-    box-shadow: 10px 10px 10px;
-    /* 容器陰影 */
+    box-shadow: 10px 10px 10px;      /* 容器陰影 */
 }
 
 .summary-table,
-.detial-table {
+.detail-table {
     width: 100%;
-    border-collapse: collapse;
-    /* collapse：邊框重疊=>表格模式 ／ separate：邊框分離=>塊狀式格子 */
+    border-collapse: collapse;       /* collapse：邊框重疊=>表格模式 ／ separate：邊框分離=>塊狀式格子 */
     margin-bottom: 2rem;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 /* ========================================== */
@@ -179,19 +155,16 @@ input[type="radio"] {
 /* ========================================== */
 .summary-table th,
 .summary-table td {
-    border: 1px solid #a0bbca;
-    /* 邊框線條 */
+    border: 1px solid #a0bbca;      /* 邊框線條 */
     padding: 5px 12px;
-    text-align: left;
-    /* 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
+    text-align: left;                 /* 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
 }
 
 .summary-table th {
     background-color: #209117;
     font-size: 1.5rem;
     color: #ffff;
-    text-align: center;
-    /* 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
+    text-align: center;               /* 表格儲存格中的 行內內容（文字、inline 元素）的水平對齊方式 */
 }
 
 /* summary-table 每個td都有 2 個元素 */
@@ -202,6 +175,7 @@ input[type="radio"] {
     font-weight: bold;
 }
 
+/* 針對最後一欄位調整 */
 .summary-table td:last-child {
     font-family: 'Courier New', Courier, monospace;
     font-size: 1.4rem;
@@ -213,10 +187,10 @@ input[type="radio"] {
 
 /* 整列在 hover 時「浮起來」的效果 */
 .summary-table {
-    border-collapse: separate;
-    /* 讓邊框分開，避免陰影被吃掉 */
-    border-spacing: 0 6px;
-    /* 可選：讓列之間有間距 */
+    -webkit-user-select: none;    /* 針對 Safari */
+    user-select: none;            /* 防止長按選取文字 */
+    border-collapse: separate;    /* 讓邊框分開，避免陰影被吃掉 */
+    border-spacing: 0 6px;        /* 可選：讓列之間有間距 */
 }
 
 .summary-table td {
@@ -224,77 +198,88 @@ input[type="radio"] {
 }
 
 .summary-table tr:hover td {
-    /* transform: translateX(-8px); */
-    /* 負值代表向左移 */
-    /* transform: translateY(-5px); */
-    /* 往上移動一點 */
-    transform: translate(-8px, -2px);
-    /* 同時向左移 8px 且 向上移 5px */
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); */
-    box-shadow: 0 0 36px rgba(0, 0, 0, 0.2);
-    /* 強化陰影，讓陰影向外擴張 (Spread)，產生原地升起的視覺感 */
-    border: 1px solid #d0a0a0;
-    /* 加上邊框顏色 */
-    background-color: #e2cbcb;
-    /* 可選：改變背景色 */
+    transform: translate(-8px, -2px);             /* 同時向左移 8px 且 向上移 5px (負值:左、上移／正值:右、下移)*/
+    box-shadow: 0 0 36px rgba(0, 0, 0, 0.2);    /* 強化陰影，讓陰影向外擴張 (Spread)，產生原地升起的視覺感 */
+    border: 1px solid #d0a0a0;                  /* 加上邊框顏色 */
+    background-color: #e2cbcb;                  /* 可選：改變背景色 */
 }
+
 
 /* ========================================== */
 /* 分期明細表格 - 優化後的自然大地色系 */
 /* ========================================== */
-.detial-table th {
+
+/* 表格整體設定：外框合併、寬度 */
+.detail-table {
+    border-collapse: collapse; 
+    width: 100%;
+}
+
+/* 表頭設定：固定位置、背景色、字體 */
+.detail-table th {
     font-family: 'Microsoft JhengHei', PMingLiU, DFKai-SB, fantasy, cursive, sans-serif;
     /* 微軟正黑體, 新細明體, 標楷體, 幻想類, 草書/手寫類, 無襯線體 */
-    font-size: 1.1rem;    
+    font-size: 1.3rem;    
     color: #ffffff;
-    letter-spacing: 1px;
-    background-color: #556b2f;    /* 深橄欖綠 */
+    letter-spacing: 1px;                        /* 字元間距：調整文字之間的「距離」 */
+    background-color: #556b2f;                /* 深橄欖綠 */
     padding: 12px;
-    /* 固定表頭核心邏輯 */
-    position: sticky;
-    top: 0;                         /* 黏在頂部 */
-    z-index: 1;                     /* 確保層級高於資料列 */
-    /* 視覺輔助 */
-    box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+    position: sticky;                           /* 固定表頭核心邏輯 */
+    top: 0;                                     /* 黏在頂部 */
+    z-index: 1;                                 /* 確保層級高於資料列 */
+    box-shadow: 0 2px 2px rgba(0,0,0,0.1);    /* 視覺輔助 */
 }
 
-.detial-table td {
+/* 單元格設定：內容間距、基本底線 */
+.detail-table td {
     font-family: sans-serif;    
-    color: #4a4a4a;                          /* 深灰褐色 */
+    color: #4a4a4a;                                          /* 深灰褐色 */
     padding: 10px;
-    border-bottom: 1px solid #d8e2dc;        /* 淡淡的石灰色 */
-    /* 只針對字體大小與粗細設定動畫，避開背景色(background-color) */
-    transition: font-size 0.3s ease, font-weight 0.3s ease;
+    border-bottom: 1px solid #d8e2dc;                        /* 淡淡的石灰色 */
+    transition: font-size 0.3s ease, font-weight 0.3s ease;    /* 只針對字體大小與粗細設定動畫，避開背景色(background-color) */
 }
 
-/* :nth-child(n) 同一層元素裡，從頭數來第 n 個元素 ／ even偶數*/
-/* 偶數列改變背景顏色 */
-.detial-table tr:nth-child(even) {
-    background-color: #f2ede4; /* 使用淡淡的米褐色（沙色） */
-}
-
-/* 套用「權重等級」偶數列改變字體顏色 */
-.detial-table tr:nth-child(even) td {
-    color: #7a4419 !important; /* 深可可色 */
+/* :nth-child(n) 同一層元素裡，從頭數來第 n 個元素 ／ even偶數, odd奇數 */
+.detail-table tr:nth-child(even) td {
+    color: #7a4419;                /* 深可可色 */
+    background-color: #f2ede4;     /* 背景顏色，使用淡淡的米褐色（沙色） */
 }
 
 /* 當滑鼠移到某一列時，該列所有的 <td> 改變字體、背景色 */
-.detial-table tr:hover td {
-    background-color: #e9edc9 !important; /* 淺草綠色 */
-    color: #000000 !important; /* 移入時文字變全黑，增加閱讀清晰度 */
+.detail-table tr:hover td {
+    background-color: #e9edc9 ;   /* 淺草綠色 */
+    color: #000000 ;              /* 移入時文字變全黑，增加閱讀清晰度 */
     font-size: 1.25rem;
     font-weight: bold;
 }
 
 /* 分期明細表格_捲動條 */
 #table-container {
-    max-height: 400px;              /* 設定最大高度，超過就會出現捲動條 */
-    overflow-x: auto;               /* 水平方向自動顯示捲動條 */
-    overflow-y: auto;               /* 垂直方向自動顯示捲動條 */
-    border: 1px solid #ccd5ae;    /* 淺綠邊框 */
-    border-radius: 8px;             /* 圓角化，符合整體風格 */
+    max-height: 400px;                    /* 設定最大高度，超過就會出現捲動條 */
+    overflow: auto;                       /* 自動顯示捲動條 */
+    border: 1px solid #ccd5ae;          /* 淺綠邊框 */
+    border-radius: 8px;                   /* 圓角化，符合整體風格 */
     margin-top: 20px;
-    background-color: #ffffff;    /* 容器底色 */
+    background-color: #ffffff;          /* 容器底色 */
+    display: block;
+    -webkit-overflow-scrolling: touch;    /* 讓 iOS Safari 擁有流暢的「撥動」感 */
+    touch-action: pan-y pan-x;            /* 明確告訴瀏覽器，這個區域允許手指上下左右滑動 */
+}
+
+/* 修改捲動條本體 */
+#table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+/* 修改捲動條軌道 */
+#table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+/* 修改捲動條滑塊 */
+#table-container::-webkit-scrollbar-thumb {
+    background: #ccd5ae;
+    border-radius: 10px;
 }
 
 /* ========================================== */
@@ -302,39 +287,75 @@ input[type="radio"] {
 /* ========================================== */
 /* 頁尾容器總體設定 */
 footer {
-    margin-top: 30px;
-    padding: 30px 20px;
-    background-color: transparent; 
-    border-top: 1px solid #e9ecef;
-    text-align: center;    /* 內文置中 */
-    color: #6a8ba2; 
-    line-height: 1.6;      /* 內文上下間距 */
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    padding: 40px 0;
+    text-align: center;
+    background-color: #f8f1e5;       /* 溫暖的淺米色 */
+    border-top: 2px solid #d4a373;   /* 棕色系邊框 */
 }
 
-.footer-content p {
-    margin: 4px 0;
-    font-size: 1rem;
-    color: inherit;    /* inherit確保段落也繼承這個顏色 */
+/* 指導老師、作者 */
+.team-info p {
+    margin: 4px 0;          /* 外邊界 */
+    font-size: 0.95rem;     /* 文字大小 */
+    font-weight: bold;      /* 文字粗細;常用的屬性值 normal 和 bold */
+    color: #5d4037;       /* 文字顏色：深棕色 */
+}
+
+.instructor {
+    text-transform: uppercase;       /* 英文全大寫 */
+    letter-spacing: 1px;             /* 字元間的間距 */
+    margin-bottom: 8px !important;   /* 元素底部外邊距;專門控制元素 底部 與下一個元素之間的距離 */
 }
 
 /* 協作資訊樣式 */
-.collab-info {
-    font-size: 0.9rem;
-    opacity: 0.5;        /* 讓斜體資訊比主文字再淡一點點，或是維持一致 */
-    font-style: italic;
+.acknowledgment {
+    font-size: 0.8rem;
+    font-style: italic;     /* 使用斜體字型 */
+    color: #7f8c8d;
+    opacity: 0.5;           /* 讓斜體資訊比主文字再淡一點點，或是維持一致 */
+    margin-top: 15px;
 }
 
+/* 版本資訊 */
 .version-info {
-    margin-top: 12px;
-    font-size: 0.85rem;
-    display: flex;
+    margin-top: 20px;
+    font-size: 0.75rem;
+    color: #a8a8a8;
+    text-transform: uppercase;       /* 英文全大寫 */
+    display: flex;                   /* 為了讓手機版能變換方向 */
     justify-content: center;
     align-items: center;
-    gap: 10px;
 }
 
 /* 設定 「分隔線（或分隔符號）」的顏色 */
-.divider { color: #bb7b7b; }
+.divider {
+    margin: 0 12px;
+}
+
+
+/* ========================================== */
+/* 桌機專屬特效 (只有有滑鼠時才啟動)         */
+/* ========================================== */
+@media (hover: hover) {
+    /* 摘要表格位移 */
+    .summary-table tr:hover td {
+        transform: translate(-8px, -2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);   /* 陰影稍微收斂一點更高級 */
+        background-color: #e2cbcb !important;
+        border-color: #d0a0a0;
+    }
+
+    /* 明細表格放大與變色 */
+    .detail-table tr:hover td {
+        background-color: #e9edc9 !important;
+        color: #000000 !important;
+        font-size: 1.2rem;                          /* 稍微縮小放大倍率，避免抖動太劇烈 */
+        font-weight: bold;
+    }
+}
+
+
 
 /* ========================================== */
 /* RWD 響應式設定 (針對手機/平板寬度 768px 以下) */
@@ -343,11 +364,11 @@ footer {
 /* 當螢幕寬度小於 768px 時套用以下設定 */
 @media screen and (max-width: 768px) {
     body {
-        padding: 12px; /* 縮小手機版的頁面邊距 */
+        padding: 12px;            /* 縮小手機版的頁面邊距 */
     }
 
     h1 {
-        font-size: 1.3rem; /* 縮小大標題，避免手機上換行太誇張 */
+        font-size: 1.3rem;        /* 縮小大標題，避免手機上換行太誇張 */
     }
 
     /* 表單區塊調整 */
@@ -355,20 +376,24 @@ footer {
         width: 100%;
     }
     
+    /* 調整字→ 萬, %, 年, 本金平均攤還, 本息平均攤還 */
     .form-row {
         flex-direction: column;    /* 變成長條狀垂直排列 */
-        align-items: flex-start;   /* 改為靠左對齊 */
+        align-items: center;       /* 改為靠左對齊 */
         gap: 6px;                  /* 稍微縮減間距 */
-        font-size: 0.8rem;           /* 縮小基礎字體 */
+        font-size: 1rem;           /* 縮小基礎字體 */
         margin-bottom: 15px;       /* 增加每一組之間的距離，避免誤觸 */
     }
 
+    /* 調整字→ 貸款金額, 貸款利率, 貸款年限, 還款方式 */
     .form-row label {
+        display: block;            /* 不要用 flex，避免文字跟 radio 緊貼 */
         width: 100%;               /* Label標籤佔滿全寬 */
         margin-right: 0;           /* 取消右側間距 */
         margin-bottom: 4px;        /* 讓標籤跟輸入框有一點點距離 */
         font-size: 1.4rem;
-        text-align: left;          /* 標籤內文靠左 */
+        text-align: center;        /* 標籤內文靠左 */
+        white-space: normal;       /* 允許文字換行 */
     }
 
     input[type="number"],
@@ -377,70 +402,85 @@ footer {
         font-size: 1rem;
         padding: 12px 10px;        /* 增加內距，讓手指好點擊（手機版建議大一點） */
         box-sizing: border-box;    /* 重要！確保 padding 不會撐破 100% 的寬度 */
+        text-align: center;        /* 文字置中 */
     }
 
     input[type="radio"] {
-        width: 1.2rem;             /* 稍微縮小單選鈕，1.5rem 在手機上有點突兀 */
-        height: 1.2rem;
         margin-left: 0;            /* 手機版靠左對齊較整齊 */
         margin-right: 8px;
+        transform: scale(1.5);
     }
 
-    /* 處理 Radio 選項的容器，讓它們橫向並排就好，不需要垂直 */
+    /* 確保手機版點擊時不會有任何位移或抖動 */
+    .summary-table, .detail-table {
+        border-collapse: collapse !important;
+    }
+
+    /* 摘要表格 */
+    /* 針對摘要表格的標題 (th) */
+    .summary-table th {
+        font-size: 1.2rem;
+        padding: 10px 5px; 
+    }
+
+    /* 針對第一個欄位調整 */
+    .summary-table td:first-child {
+    font-size: 1rem;
+    }
+
+    /* 針對最後一欄位調整 */
+    .summary-table td:last-child {
+        font-size: 1rem;
+        text-align: right;       /* 手機版數值通常靠右比較好讀 */
+        padding-right: 12px;
+    }
+
+    
+    /* 明細表格 */
+    /* 強制文字不換行 + 縮小字體 */
+    .detail-table th {
+        font-size: 0.8rem;
+        padding: 6px 2px;
+        white-space: nowrap;    /* 防止表格內容被自動擠壓換行，這樣才會出現捲軸 */
+    }
+
+    .detail-table td {
+        font-size: 0.8rem;
+        padding: 6px 2px;
+        white-space: nowrap;    /* 防止表格內容被自動擠壓換行，這樣才會出現捲軸 */
+    }
+    
+    /* 當滑鼠移到某一列時，該列所有的 <td> 改變字體、背景色 */
+    .detail-table tr:hover td {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    /* 標註作者、指導老師和版本資訊 */
+    footer {
+        padding: 30px 15px;       /* 縮減間距 */
+    }
+    
+    .team-info p {
+        font-size: 0.85rem;
+    }
+    
+    .version-info {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* 垂直排列時隱藏分隔線 */
+    .divider { display: none; }
+}
+
+
+/* Safari 不支援  :has() */
+/* 只有支援 :has() 的瀏覽器才會套用這段 */
+@supports selector(:has(*)) {
     .form-row:has(input[type="radio"]) {
         flex-direction: row; 
         flex-wrap: wrap;           /* 如果選項太多自動換行 */
         align-items: center;
     }
-
-    /* 針對摘要表格的標題 (th) */
-    .summary-table th {
-        font-size: 1.1rem !important; /* 強制縮小，覆蓋原本的 1.5rem */
-        padding: 10px 5px !important; 
-    }
-
-    /* 針對摘要表格的內容 (td) */
-    .summary-table td {
-        font-size: 0.8rem !important;
-        padding: 8px !important;
-    }
-
-    /* 針對你原本提到的最後一格調整 */
-    .summary-table td:last-child {
-        padding-right: 12px !important;
-        text-align: right; /* 手機版數值通常靠右比較好讀 */
-    }
-
-    /* 3. 明細表格：強制文字不換行 + 縮小字體 */
-    .detial-table th, 
-    .detial-table td {
-        font-size: 0.8rem !important; /* 手機版 0.9 有時還是太大 */
-        padding: 6px 2px !important;
-        white-space: nowrap; /* 防止表格內容被自動擠壓換行，這樣才會出現捲軸 */
-    }
-
-    /* 4. 取消 Hover 效果，手機沒滑鼠，Hover 反而會讓觸控卡卡的 */
-    .detial-table tr:hover td {
-        font-size: 0.85rem !important;
-    }
-    /* 手機版 Footer 優化 */
-    footer {
-        padding: 20px 10px; /* 縮減間距 */
-    }
-
-    /*  標註作者、指導老師和版本資訊 */
-    .footer-content p {
-        font-size: 0.9rem;
-    }
-    
-    .collab-info {
-        font-size: 0.8rem;
-    }
-
-    .version-info {
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    .divider { display: none; }
 }

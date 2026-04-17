@@ -58,8 +58,6 @@
                 <input type="radio" id="repayment2" name="repayment" value="repaymentMethod2">本息平均攤還
             </div>
 
-            <!-- 改type="button"，因為：前端溝通時不需要type="submit" -->
-            <!-- <button type="button" id="clacBtn">計算</button> -->
         </form>
 
 
@@ -81,7 +79,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>第1個月還款金額</td>
+                        <td>首期還款金額</td>
                         <td id="monthlyPayment"></td>
                     </tr>
                     <tr>
@@ -99,7 +97,7 @@
             <!-- CSS 捲動條（Scrollbar） 新增一個容器包住表格 -->
             <div id="table-container">
 
-                <table class="detial-table">
+                <table class="detail-table">
                     <thead>
                         <tr>
                             <th>期數</th>
@@ -119,20 +117,26 @@
         </div>
     </div>
 
-    <!-- 標註作者、指導老師、協作、版本資訊、更新日期 -->
+    <!-- 標註指導老師、作者、協作、版本資訊以及更新日期 -->
     <footer>
         <div class="footer-content">
-            <p>Developed by: irw | Instructor: Jerry Chen (陳岳洋)</p>
+            <!-- 指導老師、作者 -->
+            <div class="team-info">
+                <p class="instructor">Instructor: 聯成電腦 陳岳洋老師</p>
+                <p class="developer">Developer by: irw</p>
+            </div>
 
-            <p class="collab-info">Collaborated with: Gemini & Copilot</p>
-
+            <!-- 協作、版本資訊以及更新日期 -->
+            <p class="acknowledgment">Powered by Gemini & Copilot</p>
             <p class="version-info">
-                <span>Version: Loan Calculator V1.0</span>
+                <span>Loan Calculator V1.0</span>
                 <span class="divider">|</span>
                 <span id="update-info"></span>
             </p>
+
         </div>
     </footer>
+
 
     <!-- JavaScript 動態填入 -->
     <script>
@@ -143,10 +147,8 @@
         const amountEl = document.querySelector("#amount");
         const rateEl = document.querySelector("#rate");
         const loanYearsEl = document.querySelector("#loanYears");
-        // const clacBtnEl = document.querySelector("#clacBtn");                  // 計算按鈕
-        const exportBtnEl = document.querySelector("#exportBtn");              // 輸出CSV
+        const exportBtnEl = document.querySelector("#exportBtn");   // 輸出CSV
 
-        // console.log(amountEl, rateEl, loanYearsEl, clacBtnEl, exportBtnEl);    // 後端顯示物件
         console.log(amountEl, rateEl, loanYearsEl, exportBtnEl);    // 後端顯示物件
 
         // 取得所有的 radio 按鈕
@@ -245,11 +247,15 @@
 
         // 函式區==> 摘要表格==> 計算公式區
         function renderSummary(schedules) {
+            const amountEl = document.querySelector("#amount");
             const monthlyPaymentEl = document.querySelector("#monthlyPayment");
             const totalPaymentEl = document.querySelector("#totalPayment");
             const totalInterestEl = document.querySelector("#totalInterest");
 
-            console.log(monthlyPaymentEl, totalPaymentEl, totalInterestEl);    // 後端顯示物件
+            console.log(amountEl, monthlyPaymentEl, totalPaymentEl, totalInterestEl);    // 後端顯示物件
+
+            // 貸款金額
+            let amount = amountEl.value;
 
             // 摘要表格：月付額、利息加總，有２種計算方式
             // // 方式1：for廻圈
@@ -262,13 +268,15 @@
             // 方式2：.reduce()陣列方法，可以把所有元素累加起來
             let totalPrincipal = schedules.reduce((sum, item) => sum + item.monthlyPayment, 0);     // 月付額加總
             let totalInterest = schedules.reduce((sum, item) => sum + item.interest, 0);            // 利息加總
+            let total_Interest = totalPrincipal - amount * 10000                                    // 調整利息金額與月付額一致(月付額加總 - 貸款金額)
 
             console.log(`攤還本金總和：${totalPrincipal} 攤還利息總和：${totalInterest}`);            // 加總結果
 
             // 前端 摘要表格 顯示；放進 click 事件的函式內 .toLocaleString()加上千分位
             monthlyPaymentEl.innerText = `${schedules[0].monthlyPayment.toLocaleString()} 元`;
             totalPaymentEl.innerText = `${totalPrincipal.toLocaleString()} 元`;
-            totalInterestEl.innerText = `${totalInterest.toLocaleString()} 元`;
+            // totalInterestEl.innerText = `${totalInterest.toLocaleString()} 元`;
+            totalInterestEl.innerText = `${total_Interest.toLocaleString()} 元`;                    // 調整利息金額與月付額一致(月付額加總 - 貸款金額)
 
         } // 函式 renderSummary 的結束大括號
 
@@ -403,7 +411,7 @@
 
         } // 函式 repaymentMethod2 的結束大括號
 
-        // 動態顯示更新資訊
+        // 動態顯示版本更新資訊
         function displayUpdateInfo() {
             const updateElement = document.getElementById('update-info');
             const today = new Date();
